@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Eden Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6912ba",
+    "light": "#9e66f7",
+    "dark": "#7025a3"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -15,35 +15,7 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
+            "pages": ["index"]
           }
         ]
       },
@@ -89,24 +61,15 @@
           },
           {
             "group": "Text & Data Tools",
-            "pages": [
-              "tools/transcription",
-              "tools/weather",
-              "tools/websearch"
-            ]
+            "pages": ["tools/transcription", "tools/weather", "tools/websearch"]
           },
           {
             "group": "Model Training",
-            "pages": [
-              "tools/flux_trainer",
-              "tools/lora_trainer"
-            ]
+            "pages": ["tools/flux_trainer", "tools/lora_trainer"]
           },
           {
             "group": "Other Tools",
-            "pages": [
-              "tools/style_transfer"
-            ]
+            "pages": ["tools/style_transfer"]
           }
         ]
       },
@@ -115,35 +78,17 @@
         "groups": [
           {
             "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
+            "pages": ["api-reference/introduction"]
           },
           {
             "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
+            "pages": []
           }
         ]
       }
     ],
     "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
+      "anchors": []
     }
   },
   "logo": {
@@ -154,13 +99,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.gg/4dSYwDT"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Eden App",
+      "href": "https://app.eden.art"
     }
   },
   "contextual": {
@@ -177,9 +122,10 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/eden_art_",
+      "instagram": "https://instagram.com/edenartlab",
+      "github": "https://github.com/edenartlab",
+      "discord": "https://discord.com/invite/4dSYwDT"
     }
   }
 }
