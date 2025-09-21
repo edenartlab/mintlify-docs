@@ -81,8 +81,8 @@
             "pages": ["api-reference/introduction"]
           },
           {
-            "group": "Endpoint examples",
-            "pages": []
+            "group": "API Reference",
+            "openapi": "openapi.json"
           }
         ]
       }
@@ -127,5 +127,15 @@
       "github": "https://github.com/edenartlab",
       "discord": "https://discord.com/invite/4dSYwDT"
     }
+  },
+  "api": {
+    "playground": {
+      "mode": "simple"
+    },
+    "auth": {
+      "method": "key",
+      "name": "X-Api-Key"
+    },
+    "baseUrl": "https://api.eden.art"
   }
 }

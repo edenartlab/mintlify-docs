@@ -1,0 +1,261 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "@fastify/swagger",
+    "description": "API for Eden.art platform",
+    "version": "8.14.0"
+  },
+  "paths": {
+    "/apikeys": {
+      "post": {
+        "summary": "Create API Key",
+        "description": "Create a new API key for authentication. You can optionally provide a note to help identify the key.",
+        "tags": [
+          "API Keys"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "note": {
+                    "description": "Optional note to help identify this API key",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apiKey": {
+                      "type": "object",
+                      "properties": {
+                        "apiKey": {
+                          "description": "The generated API key - store this securely as it won't be shown again",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "apiKey"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "apiKey"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete API Key",
+        "description": "Permanently delete an API key. This action cannot be undone and the key will immediately become invalid.",
+        "tags": [
+          "API Keys"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "apiKey": {
+                    "description": "The API key to delete",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "apiKey"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List API Keys",
+        "description": "Retrieve a paginated list of your API keys. Only partial key values are returned for security.",
+        "tags": [
+          "API Keys"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "direction",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "docs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "apiKey": {
+                            "description": "Partial API key for identification",
+                            "type": "string"
+                          },
+                          "note": {
+                            "description": "Optional note associated with this API key",
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "description": "ISO timestamp when the API key was created",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "apiKey",
+                          "createdAt"
+                        ]
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "page": {
+                      "type": "number"
+                    },
+                    "pagingCounter": {
+                      "type": "number"
+                    },
+                    "hasPrevPage": {
+                      "type": "boolean"
+                    },
+                    "hasNextPage": {
+                      "type": "boolean"
+                    },
+                    "prevPage": {
+                      "type": "number"
+                    },
+                    "nextPage": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "docs",
+                    "total",
+                    "limit",
+                    "pages",
+                    "page",
+                    "pagingCounter",
+                    "hasPrevPage",
+                    "hasNextPage"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.eden.art",
+      "description": "Production server"
+    },
+    {
+      "url": "https://api-staging.eden.art",
+      "description": "Staging server"
+    },
+    {
+      "url": "http://localhost:8080",
+      "description": "Development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "X-Api-Key",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "API Keys",
+      "description": "Operations related to API key management"
+    }
+  ]
+}
