@@ -1,0 +1,50 @@
+---
+title: "Hedra"
+description: "Talking head generated with Hedra"
+---
+
+## Overview
+
+Talking head generated with Hedra
+
+- **Output Type**: video
+- **Estimated Cost**: 100 credits
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="image" type="image" required>
+  Face image
+
+  - Label: Input image
+</ParamField>
+
+<ParamField body="audio" type="audio" required>
+  Speech audio
+
+  - Label: Input audio
+</ParamField>
+
+<ParamField body="aspectRatio" type="string" required default="1:1">
+  Video aspect ratio
+
+  - Label: Aspect ratio
+  - Options: `16:9`, `1:1`, `9:16`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="prompt" type="string" default="A talking head">
+  Prompt for the video
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="resolution" type="string" default="720p">
+  Video resolution
+
+  - Label: Resolution
+  - Options: `540p`, `720p`
+</ParamField>

@@ -1,0 +1,123 @@
+---
+title: "Reel"
+description: "Generate a short reel-sized film from just content descriptions."
+---
+
+## Overview
+
+Generate a short reel-sized film from just content descriptions.
+
+- **Output Type**: video
+- **Base Model**: flux-dev
+- **Estimated Cost**: 500 credits
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Describe what your reel is about
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="agent" type="string">
+  Optional username of the agent who is writing the reel.
+
+  - Label: Agents
+</ParamField>
+
+<ParamField body="use_voiceover" type="boolean" default={true}>
+  Include a voiceover in the reel
+
+  - Label: Voiceover
+</ParamField>
+
+<ParamField body="voice" type="string">
+  Override voice. If left blank, voice is auto-generated.
+
+  - Label: Voice
+</ParamField>
+
+<ParamField body="voiceover" type="string">
+  Override voiceover. If left blank, voiceover text is auto-generated.
+
+  - Label: Voiceover text
+</ParamField>
+
+<ParamField body="use_music" type="boolean" default={true}>
+  Include music in the reel
+
+  - Label: Music
+</ParamField>
+
+<ParamField body="music_prompt" type="string">
+  Override music prompt. If left blank, music prompt is auto-generated.
+
+  - Label: Music prompt
+</ParamField>
+
+<ParamField body="min_duration" type="integer" default={10}>
+  Minimum number of seconds for the reel
+
+  - Label: Minimum duration
+  - Minimum: 5
+  - Maximum: 60
+</ParamField>
+
+<ParamField body="orientation" type="string" default="portrait">
+  The aspect ratio of the reel
+
+  - Label: Orientation
+  - Options: `landscape`, `portrait`
+</ParamField>
+
+<ParamField body="use_lora" type="boolean" default={false}>
+  Apply LoRA finetune model style to image generation
+
+  <Tip>
+    Models created with Eden LoRA trainer can add people, styles and conceptual embeddings into the diffusion model, giving it an idea of new information provided by the user.
+  </Tip>
+
+  - Label: Use LoRA
+</ParamField>
+
+<ParamField body="video_model" type="string" default="high">
+  The quality of the video model to use. Low = Fast and cheap, but lowest quality. High = Best quality, but slow and expensive.
+
+  <Tip>
+    Default to highest quality unless otherwise specified. Runway = low, Kling = medium, Veo2 = high
+  </Tip>
+
+  - Label: Video model quality
+  - Options: `low`, `medium`, `high`
+</ParamField>
+
+<ParamField body="lora" type="lora">
+  Use a LoRA finetune on top of the base model.
+
+  <Note>
+    Only visible when `use_lora=true`
+  </Note>
+
+  - Label: LoRA
+</ParamField>
+
+<ParamField body="lora_strength" type="float" default={0.6}>
+  Strength of the LoRA
+
+  <Tip>
+    If outputs resemble the LoRA but have low prompt adherence or all look the same, turn down the LoRA strength.
+  </Tip>
+
+  <Note>
+    Only visible when `use_lora=true`
+  </Note>
+
+  - Label: LoRA Strength
+  - Minimum: 0.0
+  - Maximum: 1.5
+</ParamField>

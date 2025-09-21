@@ -1,0 +1,54 @@
+---
+title: "Transcription"
+description: "Transcribe audio to text using OpenAI. Supports various models and optional timestamps."
+---
+
+## Overview
+
+Transcribe audio to text using OpenAI. Supports various models and optional timestamps.
+
+- **Output Type**: string
+- **Estimated Cost**: 5 credits
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="audio" type="audio" required>
+  Audio to transcribe (e.g., mp3, mp4, wav, m4a). Max filesize is 25MB.
+
+  - Label: Input audio
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="model" type="string" default="gpt-4o-mini-transcribe">
+  The OpenAI model to use for transcription. If timestamps are enabled, 'whisper-1' will be used regardless of this setting.
+
+  <Tip>
+    For the absolute best results, use gpt-4o-transcribe.
+  </Tip>
+
+  - Label: Transcription Model
+  - Options: `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `whisper-1`
+</ParamField>
+
+<ParamField body="use_timestamps" type="boolean" default={false}>
+  Whether to include timestamps. If true, 'whisper-1' model will be used automatically.
+
+  - Label: Enable Timestamps
+</ParamField>
+
+<ParamField body="timestamp_granularity" type="string" default="segment">
+  The granularity of the timestamps to include in the transcription.
+
+  - Label: Timestamp Granularity
+  - Options: `segment`, `word`
+</ParamField>
+
+<ParamField body="prompt" type="string">
+  Optional text to guide the model's style or improve recognition of specific words/acronyms.
+
+  - Label: Prompt
+</ParamField>

@@ -1,0 +1,101 @@
+---
+title: "Flux Schnell"
+description: "Generate an image from text quickly with Flux Schnell."
+---
+
+## Overview
+
+Generate an image from text quickly with Flux Schnell.
+
+- **Output Type**: image
+- **Base Model**: flux-schnell
+- **Estimated Cost**: 1 * n_samples credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt
+
+  <Tip>
+    Flux loves very detailed and descriptive prompts so try to be elaborate. Flux is also great at drawing text in images so feel free to add something if it makes sense.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="aspect_ratio" type="string" default="1:1">
+  Aspect ratio width/height
+
+  - Label: Aspect ratio
+  - Options: `21:9`, `16:9`, `3:2`, `4:3`, `5:4`, `1:1`, `4:5`, `3:4`, `2:3`, `9:16`, `9:21`
+</ParamField>
+
+<ParamField body="output_format" type="string" default="png">
+  Format of the output images
+
+  - Label: Output format
+  - Options: `webp`, `jpg`, `png`
+</ParamField>
+
+<ParamField body="output_quality" type="integer" default={95}>
+  Quality when saving the output images, from 0 to 100. 100 is best quality, 0 is lowest quality. Not relevant for .png outputs
+
+  - Label: Save quality
+  - Minimum: 1
+  - Maximum: 100
+</ParamField>
+
+<ParamField body="disable_safety_checker" type="boolean" default={true}>
+  Disable safety checker
+
+  - Label: Disable safety checker
+</ParamField>
+
+<ParamField body="go_fast" type="boolean" default={true}>
+  Run faster predictions with model optimized for speed (currently fp8 quantized); disable to run in original bf16
+
+  - Label: Go Fast
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, you should leave this blank!
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>
+
+<ParamField body="lora" type="lora">
+  LoRA finetuning to use
+
+  - Label: LoRA
+</ParamField>
+
+<ParamField body="lora_strength" type="float" default={1.0}>
+  Strength of the LoRA finetuning
+
+  - Label: LoRA strength
+  - Minimum: 0
+  - Maximum: 3
+</ParamField>
+
+<ParamField body="n_samples" type="integer" default={1}>
+  Number of samples to generate
+
+  <Tip>
+    Will produce n_samples variations using the same prompt.
+  </Tip>
+
+  - Label: Number of samples
+  - Minimum: 1
+  - Maximum: 4
+</ParamField>

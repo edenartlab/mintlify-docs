@@ -1,0 +1,73 @@
+---
+title: "Seedance1"
+description: "A pro version of Seedance that offers text-to-video and image-to-video support for 5s or 10s videos, at 480p and 1080p resolution."
+---
+
+## Overview
+
+A pro version of Seedance that offers text-to-video and image-to-video support for 5s or 10s videos, at 480p and 1080p resolution.
+
+- **Output Type**: video
+- **Estimated Cost**: 50 credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt for video generation
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="duration" type="integer" default={5}>
+  Duration of the video in seconds
+
+  - Label: Duration
+  - Options: `5`, `10`
+</ParamField>
+
+<ParamField body="resolution" type="string" default="1080p">
+  Resolution of the generated video
+
+  - Label: Resolution
+  - Options: `480p`, `720p`, `1080p`
+</ParamField>
+
+<ParamField body="aspect_ratio" type="string" default="16:9">
+  Aspect ratio for the generated video
+
+  - Label: Aspect ratio
+  - Options: `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9`, `9:21`
+</ParamField>
+
+<ParamField body="image" type="image">
+  Optional input image for image-to-video generation
+
+  <Tip>
+    Provide an image to generate a video based on that image. If not provided, will generate video from text prompt only.
+  </Tip>
+
+  - Label: Input image
+</ParamField>
+
+<ParamField body="camera_fixed" type="boolean" default={false}>
+  Whether to keep the camera position fixed
+
+  <Tip>
+    When true, keeps the camera position static. When false, allows camera movement.
+  </Tip>
+
+  - Label: Camera fixed
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Random seed for reproducible generation
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

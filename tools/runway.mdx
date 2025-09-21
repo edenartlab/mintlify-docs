@@ -1,0 +1,84 @@
+---
+title: "Runway"
+description: "Text-guided, realistic image animation with Runway Gen 4 Turbo or Gen 3 Alpha Turbo"
+---
+
+## Overview
+
+Text-guided, realistic image animation with Runway Gen 4 Turbo or Gen 3 Alpha Turbo
+
+- **Output Type**: video
+- **Base Model**: runway
+- **Estimated Cost**: 7.5 * duration credits
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="start_image" type="image" required>
+  The initial frame of the video
+
+  - Label: Starting image
+</ParamField>
+
+<ParamField body="prompt_text" type="string" required>
+  The prompt to guide the animation
+
+  <Tip>
+    The prompt can be used to guide the animation in a certain direction.
+  </Tip>
+
+  - Label: Prompt Text
+</ParamField>
+
+<ParamField body="duration" type="integer" required default={5}>
+  The duration of the video in seconds
+
+  - Label: Duration
+  - Options: `5`, `10`
+</ParamField>
+
+<ParamField body="ratio" type="string" required default="16:9">
+  The aspect ratio of the video
+
+  - Label: Ratio
+  - Options: `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, `9:16`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="end_image" type="image">
+  Optional ending frame of the video
+
+  <Tip>
+    Works only with gen3a_turbo
+  </Tip>
+
+  - Label: Ending image
+</ParamField>
+
+<ParamField body="prompt_enhance" type="boolean" default={true}>
+  Enhance the prompt according to Runway's prompting guide
+
+  - Label: Enhance prompt
+</ParamField>
+
+<ParamField body="model" type="string" default="gen4_turbo">
+  Runway base model
+
+  - Label: Model
+  - Options: `gen3a_turbo`, `gen4_turbo`
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, leave this blank.
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

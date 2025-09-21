@@ -1,0 +1,68 @@
+---
+title: "Runway2"
+description: "Control a character by transferring the audio and action from a reference video onto a character image"
+---
+
+## Overview
+
+Control a character by transferring the audio and action from a reference video onto a character image
+
+- **Output Type**: video
+- **Base Model**: runway
+- **Estimated Cost**: 30 credits
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="character_image" type="image" required>
+  The image of the character to animate
+
+  <Tip>
+    There must be a face in the image.
+  </Tip>
+
+  - Label: Character image
+</ParamField>
+
+<ParamField body="ratio" type="string" required default="16:9">
+  The aspect ratio of the video
+
+  - Label: Ratio
+  - Options: `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `9:21`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="reference_video" type="video">
+  The audio and action will be transferred from the reference video to the character_image.
+
+  - Label: Reference video
+</ParamField>
+
+<ParamField body="expression_intensity" type="integer" default={4}>
+  The intensity of the facial expressions
+
+  - Label: Expression intensity
+  - Minimum: 1
+  - Maximum: 5
+</ParamField>
+
+<ParamField body="body_control" type="boolean" default={true}>
+  To apply non-facial movements and gestures to the character in addition to facial expressions.
+
+  - Label: Body control
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, leave this blank.
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

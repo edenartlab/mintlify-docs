@@ -1,0 +1,65 @@
+---
+title: "Style Transfer"
+description: "Reimagine an image in a different style, maintaining shape"
+---
+
+## Overview
+
+Reimagine an image in a different style, maintaining shape
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Describe the style you want to use
+
+  <Tip>
+    This should be a description of the style you want to use!
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="init_image" type="string" required>
+
+  - Label: Input image
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="use_init_image" type="string" default={true}>
+</ParamField>
+
+<ParamField body="use_ipadapter" type="string" default={false}>
+</ParamField>
+
+<ParamField body="use_controlnet" type="string" default={true}>
+
+  - Label: Controlnet
+</ParamField>
+
+<ParamField body="preprocessor" type="string">
+
+  - Label: Input image preprocessor
+</ParamField>
+
+<ParamField body="controlnet_strength" type="string">
+
+  - Label: Input image strength
+</ParamField>
+
+<ParamField body="use_lora" type="string">
+</ParamField>
+
+<ParamField body="size_from_input" type="string" default={true}>
+</ParamField>
+
+<ParamField body="enforce_SDXL_resolution" type="string" default={true}>
+</ParamField>
+
+<ParamField body="width" type="string">
+</ParamField>
+
+<ParamField body="height" type="string">
+</ParamField>

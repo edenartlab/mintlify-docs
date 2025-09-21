@@ -1,0 +1,86 @@
+---
+title: "Flux Trainer"
+description: "Train a custom model with your images (pro)"
+---
+
+## Overview
+
+Train a custom model with your images (pro)
+
+- **Output Type**: lora
+- **Base Model**: flux-dev
+- **Estimated Cost**: 0.1 * max_train_steps credits
+- **Handler**: gcp
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="name" type="string" required>
+  Name of your trained model. Does not have to be unique. Used to 'trigger' your model in prompts.
+
+  - Label: Model name
+</ParamField>
+
+<ParamField body="lora_training_urls" type="array<image>" required>
+  Images to train your visual model. (Use at least 5 imgs, 10-20 is even better.)
+
+  - Label: Your training images
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="mode" type="string" default="auto">
+  Type of model to train (leave 'auto' if you're not sure).
+
+  - Label: Training Mode
+  - Options: `auto`, `face`, `object`, `style`
+</ParamField>
+
+<ParamField body="max_train_steps" type="integer" default={3000}>
+  Number of training steps. Only increase this if you have lots of images (>50) otherwise the model wil overfit and will not look good.
+
+  - Label: Training steps
+  - Minimum: 1000
+  - Maximum: 5000
+</ParamField>
+
+<ParamField body="lora_rank" type="integer" default={8}>
+  LoRA rank. Higher gives the model more capacity to learn but might lead to overfitting. 8 is almost always perfect.
+
+  - Label: Rank
+  - Minimum: 2
+  - Maximum: 32
+</ParamField>
+
+<ParamField body="learning_rate" type="float" default={5e-05}>
+  Learning rate for training. Higher values converge faster but too high might cause overfitting. Low values are more accurate but take more training steps.
+
+  - Label: Learning rate
+  - Minimum: 1e-05
+  - Maximum: 0.0002
+</ParamField>
+
+<ParamField body="caption_prefix" type="string">
+  Custom text to visually describe and trigger your model (leave this empty unless you know what you're doing!)
+
+  - Label: Custom Trigger Text
+</ParamField>
+
+<ParamField body="custom_validation_prompts" type="array<string>">
+  4 custom text prompts to test your model after training. If left empty, these will be auto-generated.
+
+  - Label: Custom validation prompts
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, you should leave this blank!
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

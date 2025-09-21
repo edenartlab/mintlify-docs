@@ -1,0 +1,47 @@
+---
+title: "Memory"
+description: "Update the agents memory"
+---
+
+## Overview
+
+Update the agents memory
+
+- **Output Type**: string
+- **Handler**: modal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="instruction" type="string" required>
+  The instruction used to update the agent memory, which can both add, delete or update information
+
+  <Tip>
+    Format instructions as clear, specific directives about behavioral changes or preferences.
+    Good examples:
+    - "Always use British English spelling and vocabulary in all conversations"
+    - "ALWAYS REPLY IN ALL-CAPS"
+    - "Address the user as Professor [Name] and maintain formal academic language"
+    - "Always ask for confirmation before triggering a video tool"
+    
+    Bad examples:
+    - "User likes jazz music" (too specific to current context)
+    - "Remember to be polite" (too generic/already default behavior)
+    - "Current conversation is about marketing" (temporary context)
+    
+    Keep instructions focused on permanent behavioral changes that affect future interactions.
+  </Tip>
+</ParamField>
+
+<ParamField body="userId" type="string" required>
+  The userId of the memory
+</ParamField>
+
+<ParamField body="agentId" type="string" required>
+  The agentId of the memory
+</ParamField>
+
+## Metadata
+
+**Status**: Inactive

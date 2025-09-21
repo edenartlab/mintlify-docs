@@ -48,6 +48,69 @@
         ]
       },
       {
+        "tab": "Tools",
+        "groups": [
+          {
+            "group": "Image Generation",
+            "pages": [
+              "tools/flux_kontext",
+              "tools/flux_schnell",
+              "tools/openai_image_edit",
+              "tools/openai_image_generate",
+              "tools/seedream3",
+              "tools/seedream4"
+            ]
+          },
+          {
+            "group": "Video Generation",
+            "pages": [
+              "tools/hedra",
+              "tools/kling",
+              "tools/kling_pro",
+              "tools/mmaudio",
+              "tools/reel",
+              "tools/runway",
+              "tools/runway2",
+              "tools/runway3",
+              "tools/seedance1",
+              "tools/thinksound"
+            ]
+          },
+          {
+            "group": "Audio Generation",
+            "pages": [
+              "tools/ace_step_musicgen",
+              "tools/elevenlabs",
+              "tools/elevenlabs_fx",
+              "tools/elevenlabs_music",
+              "tools/musicgen",
+              "tools/zonos"
+            ]
+          },
+          {
+            "group": "Text & Data Tools",
+            "pages": [
+              "tools/transcription",
+              "tools/weather",
+              "tools/websearch"
+            ]
+          },
+          {
+            "group": "Model Training",
+            "pages": [
+              "tools/flux_trainer",
+              "tools/lora_trainer"
+            ]
+          },
+          {
+            "group": "Other Tools",
+            "pages": [
+              "tools/style_transfer"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API reference",
         "groups": [
           {
@@ -102,15 +165,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {

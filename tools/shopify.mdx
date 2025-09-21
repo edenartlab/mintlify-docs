@@ -1,0 +1,84 @@
+---
+title: "Shopify"
+description: "Add a product to Shopify storefront"
+---
+
+## Overview
+
+Add a product to Shopify storefront
+
+- **Output Type**: string
+- **Estimated Cost**: 1 credits
+- **Handler**: local
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="title" type="string" required>
+  Title of the product
+
+  - Label: Title
+</ParamField>
+
+<ParamField body="description" type="string" required>
+  Description of the product
+
+  - Label: Description
+</ParamField>
+
+<ParamField body="image" type="string" required>
+  Image URL of the product
+
+  <Tip>
+    Provide a full URL to the image
+  </Tip>
+
+  - Label: Image
+</ParamField>
+
+<ParamField body="alt_text" type="string" required>
+  Alt text for the image.
+
+  <Tip>
+    Make this a short description of the image content. For accessibility.
+  </Tip>
+
+  - Label: Alt Text
+</ParamField>
+
+<ParamField body="price" type="float" required>
+  Price of the product in USD
+
+  - Label: Price
+  - Minimum: 0.0
+  - Maximum: 1000.0
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="quantity" type="integer" default={1}>
+  Quantity of the product
+
+  <Tip>
+    How many of the product are in stock.
+  </Tip>
+
+  - Label: Quantity
+  - Minimum: 0
+  - Maximum: 10000
+</ParamField>
+
+<ParamField body="auto_publish" type="boolean" default={true}>
+  Whether to automatically publish the product to the storefront.
+
+  <Tip>
+    If this is false, tell the user they need to manually publish the product to the storefront from the Shopify admin panel.
+  </Tip>
+
+  - Label: Auto Publish
+</ParamField>
+
+## Metadata
+
+**Visibility**: Hidden

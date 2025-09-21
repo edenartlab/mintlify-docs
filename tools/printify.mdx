@@ -1,0 +1,62 @@
+---
+title: "Printify"
+description: "Create a product on Printify print-on-demand platform"
+---
+
+## Overview
+
+Create a product on Printify print-on-demand platform
+
+- **Output Type**: string
+- **Estimated Cost**: 1 credits
+- **Handler**: local
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="title" type="string" required>
+  Title of the product
+
+  - Label: Title
+</ParamField>
+
+<ParamField body="description" type="string" required>
+  Description of the product
+
+  - Label: Description
+</ParamField>
+
+<ParamField body="image" type="string" required>
+  Image URL for the product design
+
+  <Tip>
+    Provide a full URL to the image file
+  </Tip>
+
+  - Label: Image
+</ParamField>
+
+<ParamField body="price" type="float" required>
+  Retail price of the product in USD
+
+  - Label: Price
+  - Minimum: 0.0
+  - Maximum: 1000.0
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="auto_publish" type="boolean" default={true}>
+  Whether to automatically publish the product to the storefront
+
+  <Tip>
+    If false, product will remain in draft state and require manual publishing
+  </Tip>
+
+  - Label: Auto Publish
+</ParamField>
+
+## Metadata
+
+**Visibility**: Hidden

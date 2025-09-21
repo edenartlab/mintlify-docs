@@ -1,0 +1,147 @@
+---
+title: "Flux Dev LORA"
+description: "Generate an image from text Flux-Dev."
+---
+
+## Overview
+
+Generate an image from text Flux-Dev.
+
+- **Output Type**: image
+- **Base Model**: flux-dev
+- **Estimated Cost**: 2 * n_samples credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt
+
+  <Tip>
+    Flux loves very detailed and descriptive prompts so try to be elaborate. Flux is also great at drawing text in images so feel free to add something if it makes sense.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="aspect_ratio" type="string" default="1:1">
+  Aspect ratio width/height
+
+  - Label: Aspect ratio
+  - Options: `21:9`, `16:9`, `3:2`, `4:3`, `5:4`, `1:1`, `4:5`, `3:4`, `2:3`, `9:16`, `9:21`
+</ParamField>
+
+<ParamField body="init_image" type="image">
+  Input image. Aspect ratio will match this.
+
+  <Tip>
+    Providing an input image will activate prompt-guided img2img. This can be used to inject color patterns or rough shapes into the final generation. The result can be very sensitive to prompt_strength values.
+  </Tip>
+
+  - Label: Input image
+</ParamField>
+
+<ParamField body="prompt_strength" type="float" default={0.8}>
+  Prompt strength when using img2img. 1.0 corresponds to full destruction of information in image
+
+  <Tip>
+    Typical values are 0.7-0.9 However, rounding errors can occur for large values of prompt_strength (>0.95), causing it to snap to 1.0 (rounded) instead.
+  </Tip>
+
+  - Label: Prompt strength
+  - Minimum: 0
+  - Maximum: 1
+</ParamField>
+
+<ParamField body="output_format" type="string" default="png">
+  Format of the output images
+
+  - Label: Output format
+  - Options: `webp`, `jpg`, `png`
+</ParamField>
+
+<ParamField body="output_quality" type="integer" default={95}>
+  Quality when saving the output images, from 0 to 100. 100 is best quality, 0 is lowest quality. Not relevant for .png outputs
+
+  - Label: Save quality
+  - Minimum: 1
+  - Maximum: 100
+</ParamField>
+
+<ParamField body="disable_safety_checker" type="boolean" default={true}>
+  Disable safety checker
+
+  - Label: Disable safety checker
+</ParamField>
+
+<ParamField body="go_fast" type="boolean" default={false}>
+  Run faster predictions with model optimized for speed (currently fp8 quantized); disable to run in original bf16
+
+  - Label: Go Fast
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, you should leave this blank!
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>
+
+<ParamField body="num_inference_steps" type="integer" default={30}>
+  Number of denoising steps. Recommended range is 25-40. Higher values can sometimes produce slightly more details.
+
+  - Label: Number of denoising steps
+  - Minimum: 20
+  - Maximum: 50
+</ParamField>
+
+<ParamField body="guidance" type="float" default={3.0}>
+  How strictly to follow the prompt
+
+  - Label: Guidance scale
+  - Minimum: 2.0
+  - Maximum: 4.0
+</ParamField>
+
+<ParamField body="lora" type="lora">
+  LoRA finetuning to use
+
+  <Tip>
+    This is the unique database ID for the LoRA model you want to use. This is model_id in the search_models tool.
+  </Tip>
+
+  - Label: LoRA
+</ParamField>
+
+<ParamField body="lora_strength" type="float" default={0.85}>
+  Strength of the LoRA model (lower values may increase prompt adherence at the expense of resemblance to the LoRA subject/style). Ideally stay within 0.7-0.9
+
+  - Label: LoRA strength
+  - Minimum: 0
+  - Maximum: 1.2
+</ParamField>
+
+<ParamField body="n_samples" type="integer" default={1}>
+  Number of samples to generate
+
+  <Tip>
+    Will produce n_samples variations using the same prompt.
+  </Tip>
+
+  - Label: Number of samples
+  - Minimum: 1
+  - Maximum: 4
+</ParamField>
+
+## Metadata
+
+**Visibility**: Hidden

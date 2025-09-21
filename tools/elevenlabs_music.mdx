@@ -1,0 +1,37 @@
+---
+title: "Elevenlabs Music"
+description: "Text-to-music with ElevenLabs"
+---
+
+## Overview
+
+Text-to-music with ElevenLabs
+
+- **Output Type**: audio
+- **Estimated Cost**: 0.5 * duration credits
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  A compact but specific instruction for the whole composition. Include genre/tone, BPM, key, instrumentation with “solo”, vocal directives with “a cappella” or “instrumental only”, singer count/roles, vocal delivery adjectives, timing cues for when vocals start/stop, language, and (optionally) a ‘Lyrics:’ block. Preserve user intent as much as possible.
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="duration" type="float" required default={30}>
+  The length of the music in seconds
+
+  - Label: Duration in seconds
+  - Minimum: 10
+  - Maximum: 300
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="enhance_prompt" type="boolean" default={true}>
+  Whether to automatically enhance the prompt to match best practices.
+
+  - Label: Enhance Prompt
+</ParamField>

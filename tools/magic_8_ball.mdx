@@ -1,0 +1,61 @@
+---
+title: "Magic 8 Ball"
+description: "A creative diversity tool that randomly samples from categories to break repetitive patterns in content generation"
+---
+
+## Overview
+
+A creative diversity tool that randomly samples from categories to break repetitive patterns in content generation
+
+- **Output Type**: string
+- **Estimated Cost**: 5 credits
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="sample_dict" type="object" required>
+  Category random sampling dictionary
+
+  <Tip>
+    Each category or dimension should contain 4-10 diverse options that represent different creative directions
+  </Tip>
+
+  - Label: Sample Dictionary
+</ParamField>
+
+<ParamField body="context" type="string" required>
+  Background context to frame the creative task
+
+  <Tip>
+    Provides contextual framing that helps guide the content generation
+  </Tip>
+
+  - Label: Context
+</ParamField>
+
+<ParamField body="instruction" type="string" required>
+  Clear directions for what to do with the randomly sampled elements
+
+  <Tip>
+    Should explain how the sampled elements should be incorporated into the final output
+  </Tip>
+
+  - Label: Instructions
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="agent" type="string">
+  Optional agent ID to use for persona-based content generation
+
+  <Tip>
+    If provided, the agent's persona will influence the creative direction
+  </Tip>
+
+  - Label: Agent ID
+</ParamField>
+
+## Metadata
+
+**Visibility**: Hidden

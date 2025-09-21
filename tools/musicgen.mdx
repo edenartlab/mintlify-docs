@@ -1,0 +1,95 @@
+---
+title: "Musicgen"
+description: "Generate music"
+---
+
+## Overview
+
+Generate music
+
+- **Output Type**: audio
+- **Base Model**: musicgen
+- **Estimated Cost**: 0.5 * duration credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Description of the type of music you want to generate.
+
+  <Tip>
+    Use stylistic and musical terms to precisely succinctly describe the music. No filler words, sentences, verbs, artist names, or negatives ("no drums"). Separate fields by pipe (|) in: Consider including genre or sub-genres, mood/emotional adjectives, instrumentats, production gloss (tape hiss, 2010s EDM polish, etc.), BPM + meter if not 4/4. 
+    Examples:
+    - "Future Garage | Melancholic, Weightless | Skittering 2-step drums, Warm sub-bass, Hazy vinyl pads | Rain-soaked night-city reverb | 134 BPM"
+    - "Orchestral | Spaghetti Western twang | Instrumentation Strings, Brass, Percussion, and Choir | Loungy, Subtle, Inspiring, Heroic | 90 BPM", 
+    - "Electronic, Synthwave, Retro-Futuristic | Instruments: Analog Synths, Drum Machine, Bass | Moods: Nostalgic, Cool, Rhythmic | 1980s Sci-Fi | 115 BPM"
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="model" type="string" default="melody-large">
+  Model to generate audio with
+
+  - Label: Audio model
+  - Options: `stereo-melody-large`, `stereo-large`, `melody-large`, `large`
+</ParamField>
+
+<ParamField body="duration" type="integer" default={10}>
+  Duration in seconds
+
+  - Label: Duration
+  - Minimum: 1
+  - Maximum: 300
+</ParamField>
+
+<ParamField body="input_audio" type="string">
+  An audio file that will influence the generated music.
+
+  - Label: Input audio
+</ParamField>
+
+<ParamField body="continuation" type="boolean" default={false}>
+  If true, the generated music will be a continuation of the input_audio. Otherwise, the generated music will mimic the input_audio's melody. Requires input_audio to be provided.
+
+  <Note>
+    Only visible when `input_audio`
+  </Note>
+
+  - Label: Continue input_audio
+</ParamField>
+
+<ParamField body="temperature" type="float" default={1.0}>
+  Controls the 'conservativeness' of the sampling process. Higher temperature means more diversity.
+
+  - Label: Temperature
+  - Minimum: 0
+  - Maximum: 1.0
+</ParamField>
+
+<ParamField body="classifier_free_guidance" type="float" default={3.0}>
+  Increases the influence of inputs on the output. Higher values produce lower-varience outputs that adhere more closely to inputs.
+
+  - Label: Classifier free guidance
+  - Minimum: 0
+  - Maximum: 10
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>
+
+<ParamField body="output_format" type="string" default="mp3">
+  Output audio format
+
+  - Label: Output format
+  - Options: `mp3`, `wav`
+</ParamField>

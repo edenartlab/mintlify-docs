@@ -1,0 +1,66 @@
+---
+title: "Zonos"
+description: "Text-to-speech using Zonos"
+---
+
+## Overview
+
+Text-to-speech using Zonos
+
+- **Output Type**: audio
+- **Estimated Cost**: 0.05 * text.length credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="text" type="string" required>
+  Text to generate speech from
+
+  - Label: Text
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="audio" type="audio">
+  Optional reference audio to use for voice cloning
+</ParamField>
+
+<ParamField body="language" type="string">
+  Language to generate voice in
+
+  - Options: `en-us`, `en-gb`, `ja`, `cmn`, `yue`, `fr-fr`, `de`
+</ParamField>
+
+<ParamField body="emotion" type="string" default="[0.30, 0.03, 0.03, 0.03, 0.03, 0.03, 0.25, 0.30]">
+  Emotion vector for the generated speech
+
+  <Tip>
+    Encodes emotion in an 8D vector. Included emotions are Happiness, Sadness, Disgust, Fear, Surprise, Anger, Other, Neutral in that order. This vector tends to be entangled with various other conditioning inputs. More notably, it's entangled with text based on the text sentiment (eg. Angry texts will be more effectively conditioned to be angry, but if you try to make it sound sad it will be a lot less effective). It's also entangled with pitch standard deviation since larger values there tend to correlate to more emotional utterances. Make sure to always surround the emotion vector with quotes to avoid list-parsing!
+  </Tip>
+</ParamField>
+
+<ParamField body="speaking_rate" type="float" default={15}>
+  Speaking rate in phonemes per second.
+
+  <Tip>
+    Speaking rate in phonemes per second. Default is 15.0. 10-12 is slow and clear, 15-17 is natural conversational, 20+ is fast. Values above 25 may produce artifacts.
+  </Tip>
+
+  - Label: Speaking Rate
+  - Minimum: 5
+  - Maximum: 30
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set to a random value.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous generation. Unless one is specified, you should leave this blank!
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

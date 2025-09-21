@@ -1,0 +1,88 @@
+---
+title: "Kling Pro"
+description: "Generate a video from text and an optional input image with Kling"
+---
+
+## Overview
+
+Generate a video from text and an optional input image with Kling
+
+- **Output Type**: video
+- **Base Model**: kling
+- **Estimated Cost**: quality == "high" ? 25 * duration : 10 * duration credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt
+
+  <Tip>
+    Describe the video you want to generate in detail.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="aspect_ratio" type="string" required default="1:1">
+  Width/height (ignored when using a starting image)
+
+  - Label: Aspect ratio
+  - Options: `16:9`, `1:1`, `9:16`
+</ParamField>
+
+<ParamField body="quality" type="string" required default="medium">
+  The quality of the Kling video model.
+
+  <Tip>
+    High is highest quality but slow and expensive. Medium is good for most cases. Low is faster and cheaper but lower quality.
+  </Tip>
+
+  - Label: Quality
+  - Options: `high`, `medium`, `low`
+</ParamField>
+
+<ParamField body="duration" type="integer" required default={5}>
+  Duration of the video in seconds
+
+  - Label: Duration
+  - Options: `5`, `10`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="negative_prompt" type="string">
+  Negative text prompt
+
+  <Tip>
+    Optionally describe anything you do *not* want in the video.
+  </Tip>
+
+  - Label: Negative prompt
+</ParamField>
+
+<ParamField body="start_image" type="image">
+  First frame of the video to use as a keyframe
+
+  <Tip>
+    If using quality=medium, this is required. Pure txt2video is only supported for quality=high or quality=low.
+  </Tip>
+
+  - Label: Starting image
+</ParamField>
+
+<ParamField body="end_image" type="image">
+  Last frame of the video to use as a keyframe (quality=medium only, not supported for high or low)
+
+  - Label: Ending image
+</ParamField>
+
+<ParamField body="cfg_scale" type="float" default={0.5}>
+  Flexibility in video generation; The higher the value, the lower the model's degree of flexibility, and the stronger the relevance to the user's prompt.
+
+  - Label: Guidance scale
+  - Minimum: 0
+  - Maximum: 1
+</ParamField>

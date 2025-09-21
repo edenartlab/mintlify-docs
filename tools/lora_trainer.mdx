@@ -1,0 +1,85 @@
+---
+title: "LORA Trainer"
+description: "Train a custom model with your images (fast)"
+---
+
+## Overview
+
+Train a custom model with your images (fast)
+
+- **Output Type**: lora
+- **Base Model**: sdxl
+- **Estimated Cost**: 0.2 * max_train_steps credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="name" type="string" required>
+  Name of the LoRA (this will also be your trigger word)
+
+  - Label: Model Name
+</ParamField>
+
+<ParamField body="lora_training_urls" type="array<image>" required>
+  Images to train your visual model. (Use at least 5 imgs, 10-20 is even better.)
+
+  - Label: Your training images
+</ParamField>
+
+<ParamField body="concept_mode" type="string" required default="style">
+  Type of model to train
+
+  - Label: Training Mode
+  - Options: `face`, `object`, `style`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="sd_model_version" type="string" default="sdxl">
+  Base Stable Diffusion model to finetune from
+
+  <Tip>
+    Almost always, we want to train and SDXL LoRa. Only when we want to make animatediff animations do we need an sd15 lora.
+  </Tip>
+
+  - Label: Base SD Model
+  - Options: `sdxl`, `sd15`
+</ParamField>
+
+<ParamField body="max_train_steps" type="integer" default={300}>
+  Number of training steps. Only increase this if you have lots of images (>50) otherwise the model wil overfit and will not look good.
+
+  <Tip>
+    This should be left at the default 300, unless the user *specifically* instructs you otherwise. If the base model is SD15, then you should *change* this to 800, again unless the user specifically requests something else.
+  </Tip>
+
+  - Label: Training steps
+  - Minimum: 100
+  - Maximum: 1200
+</ParamField>
+
+<ParamField body="resolution" type="integer" default={512}>
+  Resolution your images will be resized to for training (512 is great and your generations will still look perfect when rendering at eg 1024)
+
+  <Tip>
+    Do not change this unless you are specifically instructed to. Highly recommended to train at 512 for optimal speed and at 768 for best quality.
+  </Tip>
+
+  - Label: Resolution
+  - Minimum: 512
+  - Maximum: 768
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Set random seed for reproducibility. If blank, will be set randomly.
+
+  <Tip>
+    You should only set this if you want to start from/copy the seed of a previous image. Unless one is specified, you should leave this blank!
+  </Tip>
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

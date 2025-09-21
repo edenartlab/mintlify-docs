@@ -1,0 +1,81 @@
+---
+title: "Example Tool"
+description: "This model represents a person with their details like name, age, hobbies, contacts, and address."
+---
+
+## Overview
+
+This model represents a person with their details like name, age, hobbies, contacts, and address.
+
+- **Output Type**: image
+- **Estimated Cost**: 50 credits
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="name" type="string" required>
+  The name of a widget should tell you what it's called
+
+  - Label: Name of the widget
+</ParamField>
+
+<ParamField body="type" type="string" required default="doohickey">
+  This should tell you what kind of a widget you've got
+
+  <Tip>
+    Thingies are better than gadgets, but doohickies are better than thingies
+  </Tip>
+
+  - Label: Type of widget
+  - Options: `thingy`, `gadget`, `doohickey`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="age" type="string" default="random">
+  Age of the widget
+
+  <Tip>
+    If you don't set this, it will be randomized between minimum and maximum
+  </Tip>
+
+  - Label: Age
+  - Minimum: -16
+  - Maximum: 144
+</ParamField>
+
+<ParamField body="price" type="float" default={1.01}>
+  Price of the widget in dollars
+
+  <Tip>
+    This should be a fair price
+  </Tip>
+
+  - Minimum: 0.55
+  - Maximum: 2.34
+</ParamField>
+
+<ParamField body="skills" type="array<string>" default="['reading', 'swimming', 'cooking']">
+  A list of skills the widget has
+</ParamField>
+
+<ParamField body="contacts" type="array<object>">
+  A list of contact methods
+</ParamField>
+
+<ParamField body="address" type="object">
+  The person's address
+</ParamField>
+
+<ParamField body="matrix" type="object">
+  A 2D array of integers (matrix)
+
+  <Tip>
+    Matrix is a 2D array of integers
+  </Tip>
+</ParamField>
+
+## Metadata
+
+**Status**: Inactive

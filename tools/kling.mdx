@@ -1,0 +1,77 @@
+---
+title: "Kling"
+description: "Generate 5s and 10s videos in 720p and 1080p resolution from a starting image using Kling v2.1"
+---
+
+## Overview
+
+Generate 5s and 10s videos in 720p and 1080p resolution from a starting image using Kling v2.1
+
+- **Output Type**: video
+- **Base Model**: kling
+- **Estimated Cost**: mode == "pro" ? 9 * duration : 5 * duration credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text description for video generation
+
+  <Tip>
+    Describe the video you want to generate in detail. Be specific about actions, movements, and visual elements.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="start_image" type="image" required>
+  First frame of the video (required)
+
+  <Tip>
+    This image will be used as the first frame of the video. The model will animate from this starting point based on your prompt.
+  </Tip>
+
+  - Label: Starting image
+</ParamField>
+
+<ParamField body="mode" type="string" required default="pro">
+  Video quality mode
+
+  <Tip>
+    Standard: 720p resolution, faster and cheaper. Pro: 1080p resolution, higher quality but more expensive.
+  </Tip>
+
+  - Label: Mode
+  - Options: `standard`, `pro`
+</ParamField>
+
+<ParamField body="duration" type="integer" required default={5}>
+  Duration of the video in seconds
+
+  - Label: Duration
+  - Options: `5`, `10`
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="end_image" type="image">
+  Last frame of the video (optional)
+
+  <Tip>
+    This image will be used as the last frame of the video. The model will animate to this ending point based on your prompt.
+  </Tip>
+
+  - Label: Ending image
+</ParamField>
+
+<ParamField body="negative_prompt" type="string">
+  Optional negative text prompt
+
+  <Tip>
+    Describe anything you do NOT want to appear in the video or any behaviors to avoid.
+  </Tip>
+
+  - Label: Negative prompt
+</ParamField>

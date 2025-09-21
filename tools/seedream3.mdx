@@ -1,0 +1,86 @@
+---
+title: "Seedream3"
+description: "A text-to-image model with support for native high-resolution (2K) image generation."
+---
+
+## Overview
+
+A text-to-image model with support for native high-resolution (2K) image generation.
+
+- **Output Type**: image
+- **Estimated Cost**: 5 credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt for image generation
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="aspect_ratio" type="string" default="16:9">
+  Aspect ratio for the generated image
+
+  - Label: Aspect ratio
+  - Options: `1:1`, `16:9`, `4:3`, `3:4`, `9:16`, `21:9`, `9:21`, `custom`
+</ParamField>
+
+<ParamField body="size" type="string" default="regular">
+  Size of the generated image
+
+  <Tip>
+    Small: 512px, Regular: 1 megapixel, Big: 2048px longest dimension
+  </Tip>
+
+  - Label: Size
+  - Options: `small`, `regular`, `big`
+</ParamField>
+
+<ParamField body="width" type="integer">
+  Width of the generated image in pixels
+
+  <Tip>
+    Only used when aspect_ratio is set to "custom"
+  </Tip>
+
+  - Label: Width
+  - Minimum: 512
+  - Maximum: 2048
+</ParamField>
+
+<ParamField body="height" type="integer">
+  Height of the generated image in pixels
+
+  <Tip>
+    Only used when aspect_ratio is set to "custom"
+  </Tip>
+
+  - Label: Height
+  - Minimum: 512
+  - Maximum: 2048
+</ParamField>
+
+<ParamField body="guidance_scale" type="float" default={2.5}>
+  Controls how closely the model follows the prompt
+
+  <Tip>
+    Higher values mean stricter adherence to the prompt
+  </Tip>
+
+  - Label: Guidance scale
+  - Minimum: 1
+  - Maximum: 10
+</ParamField>
+
+<ParamField body="seed" type="integer" default="random">
+  Random seed for reproducible generation
+
+  - Label: Seed
+  - Minimum: 0
+  - Maximum: 2147483647
+</ParamField>

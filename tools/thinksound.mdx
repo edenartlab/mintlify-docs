@@ -1,0 +1,66 @@
+---
+title: "Thinksound"
+description: "Generate audio that matches given video content + prompt using ThinkSound."
+---
+
+## Overview
+
+Generate audio that matches given video content + prompt using ThinkSound.
+
+- **Output Type**: video
+- **Estimated Cost**: 0.5 * duration credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="video" type="video" required>
+  URL of the base video
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="caption" type="string">
+  Brief description of the video content
+
+  <Tip>
+    A short caption describing what's happening in the video to help the model understand the context.
+  </Tip>
+
+  - Label: Caption
+</ParamField>
+
+<ParamField body="cot" type="string">
+  Detailed description of the sound generation process
+
+  <Tip>
+    A detailed description that begins with the sound process and includes texture, atmosphere, and timing details. This helps the model understand exactly what audio to generate and how it should match the video.
+  </Tip>
+
+  - Label: Chain of thought
+</ParamField>
+
+<ParamField body="cfg_scale" type="float" default={5}>
+  Classifier-free guidance scale
+
+  <Tip>
+    Controls how closely the model follows the prompt. Higher values mean stricter adherence to the prompt.
+  </Tip>
+
+  - Label: CFG Scale
+  - Minimum: 1
+  - Maximum: 20
+</ParamField>
+
+<ParamField body="num_inference_steps" type="integer" default={24}>
+  Number of inference steps
+
+  <Tip>
+    More steps generally produce higher quality but take longer to generate.
+  </Tip>
+
+  - Label: Inference steps
+  - Minimum: 10
+  - Maximum: 50
+</ParamField>

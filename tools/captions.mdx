@@ -1,0 +1,75 @@
+---
+title: "Captions"
+description: "Generate an AI-powered advertisement video using Captions AI"
+---
+
+## Overview
+
+Generate an AI-powered advertisement video using Captions AI
+
+- **Output Type**: video
+- **Estimated Cost**: 1 credits
+- **Handler**: local
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="script" type="string" required>
+  The script for the advertisement
+
+  <Tip>
+    Minimum 10 characters. Maximum 800 characters. Should be engaging and promotional.
+  </Tip>
+
+  - Label: Script
+  - Minimum: 10
+  - Maximum: 800
+</ParamField>
+
+<ParamField body="media_urls" type="array<string>" required>
+  Array of image URLs to include in the video
+
+  <Tip>
+    At least one image URL is required. Use high-quality images.
+  </Tip>
+
+  - Label: Media URLs
+  - Minimum: 1
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="creator_name" type="string">
+  Name of the AI creator/voice to use
+
+  <Tip>
+    Available creators include Jason, Grace-1, Isabella-1, James, Ava-1, Michael, Olivia, and many more. Leave empty for random selection.
+  </Tip>
+
+  - Label: AI Creator
+</ParamField>
+
+<ParamField body="resolution" type="string" default="fhd">
+  Video resolution
+
+  <Tip>
+    Options - fhd (Full HD), hd (HD), 4k (4K)
+  </Tip>
+
+  - Label: Resolution
+</ParamField>
+
+<ParamField body="wait_for_completion" type="boolean" default={true}>
+  Whether to wait for video generation to complete
+
+  <Tip>
+    If true, will wait and return video URL. If false, returns operation ID.
+  </Tip>
+
+  - Label: Wait for Completion
+</ParamField>
+
+## Metadata
+
+**Visibility**: Hidden
