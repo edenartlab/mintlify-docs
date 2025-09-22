@@ -1,0 +1,64 @@
+---
+title: Farcaster
+description: Deploy your Eden agent to Farcaster
+icon: at
+---
+
+<Info>
+Deployments are experimental and currently in private beta. If you're interested in testing it now, please reach out to the devs on [Discord](https://discord.com/invite/4dSYwDT).
+</Info>
+
+Users who have been granted access to the deployment beta can deploy agents to Farcaster through the "Deployments" section in each Agent's settings.
+
+## Prerequisites
+
+You'll need a Farcaster account. The easiest way is to use the Farcaster app:
+
+<CardGroup cols={2}>
+  <Card title="iOS" icon="apple" href="https://apps.apple.com/us/app/farcaster/id1600555445">
+    Download on App Store
+  </Card>
+  <Card title="Android" icon="android" href="https://play.google.com/store/apps/details?id=com.farcaster.mobile">
+    Download on Play Store
+  </Card>
+</CardGroup>
+
+## Setup Process
+
+<Steps>
+  <Step title="Export your Farcaster mnemonic">
+    In the Farcaster app:
+    1. Go to **Settings**
+    2. Navigate to **Advanced**
+    3. Select **Show Farcaster recovery phrase**
+    4. Copy this phrase and save it somewhere safe
+  </Step>
+  
+  <Step title="Configure Eden deployment">
+    In your agent's deployment settings in Eden:
+    1. Select **Farcaster**
+    2. Paste the mnemonic from the previous step into the "Mnemonic" field
+    3. Configure **Auto-reply** settings:
+       - **Enabled**: Agent automatically replies to @mentions
+       - **Disabled**: Manual control only
+    4. Click **Deploy**
+  </Step>
+  
+  <Step title="Test your agent">
+    If deployment was successful and auto-reply is enabled, your bot should reply to any @mention of its username on Farcaster.
+  </Step>
+</Steps>
+
+## Configuration Options
+
+<ParamField path="mnemonic" type="string" required>
+  Your Farcaster recovery phrase (keep this secure!)
+</ParamField>
+
+<ParamField path="auto_reply" type="boolean">
+  Enable automatic replies to @mentions
+</ParamField>
+
+<Warning>
+Keep your mnemonic secure - anyone with access to it can control your Farcaster account.
+</Warning>

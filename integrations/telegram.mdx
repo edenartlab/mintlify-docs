@@ -1,0 +1,111 @@
+---
+title: Telegram
+description: Deploy your Eden agent to Telegram groups and channels
+icon: paper-plane
+---
+
+<Info>
+Deployments are experimental and currently in private beta. If you're interested in testing it now, please reach out to the devs on [Discord](https://discord.com/invite/4dSYwDT).
+</Info>
+
+Users who have been granted access to the deployment beta can deploy agents to Telegram or [Discord](/integrations/discord) through the "Deployments" section.
+
+## Setup Process
+
+<Steps>
+  <Step title="Create Telegram Bot">
+    ### Configure with BotFather
+    
+    1. Message [@BotFather](https://t.me/botfather) in Telegram
+    2. Send `/newbot` to create a new bot
+    3. Provide:
+       - Display name for your bot
+       - Username ending with `_bot`
+    4. Copy the token and save it somewhere safe
+    5. Disable privacy mode to let the bot receive group messages:
+       - Send `/setprivacy`
+       - Select your bot
+       - Choose "Disable"
+    
+    <img src="/img/telegram1.jpg" alt="Creating a new bot in Telegram" />
+    
+    <Tip>
+    Use `/setuserpic` to upload your bot's profile picture.
+    </Tip>
+  </Step>
+  
+  <Step title="Configure Eden Deployment">
+    Go to your agent's deployment settings:
+    1. Select **Telegram**
+    2. Paste the token into the "Token" field
+    
+    <img src="/img/telegram_deployment.jpg" alt="Enter token and deploy" />
+  </Step>
+  
+  <Step title="Set Up Allowed Channels">
+    You need to specify which channels (groups/topics) the bot can chat in.
+    
+    To get channel IDs, visit the channel in [Telegram Web](https://web.telegram.org/) and inspect the URL.
+    
+    <Tabs>
+      <Tab title="Groups without topics">
+        Copy everything after the last slash and #.  
+        Format: `-some_number`  
+        Example: `-4656194598`
+        
+        <img src="/img/telegram/telegram1.jpg" alt="Group ID format" />
+      </Tab>
+      
+      <Tab title="Groups with topics">
+        Copy everything after the last slash.  
+        Format: `-100` + `some_number` + `_some_string`  
+        
+        <Note>
+        If your URL has `/k/`, try changing it to `/a/` instead.
+        </Note>
+        
+        Example: `-1002429164874_30`
+        
+        <img src="/img/telegram/telegram2.jpg" alt="Topic group ID format" />
+      </Tab>
+    </Tabs>
+    
+    Add these IDs to "Allowed Channels" for each channel you want your bot to access.
+  </Step>
+  
+  <Step title="Deploy and Test">
+    1. Click **Deploy**
+    2. Wait for deployment confirmation
+    3. Try mentioning your bot in an allowed channel
+    
+    <Warning>
+    The deployment may show as "successful" a few minutes before it's actually ready. If successful but not responding, please wait a few more minutes.
+    </Warning>
+  </Step>
+</Steps>
+
+## Configuration Fields
+
+<ParamField path="token" type="string" required>
+  The bot token from BotFather
+</ParamField>
+
+<ParamField path="allowed_channels" type="array" required>
+  List of channel/group IDs where the bot can operate
+</ParamField>
+
+## Getting Channel IDs
+
+### Quick Reference
+
+| Channel Type | ID Format | Example |
+|--------------|-----------|---------|
+| Regular Group | `-number` | `-4656194598` |
+| Group with Topics | `-100number_string` | `-1002429164874_30` |
+
+### Troubleshooting Tips
+
+- Use [Telegram Web](https://web.telegram.org/) to get IDs
+- For topic groups, ensure URL uses `/a/` not `/k/`
+- Double-check the bot has been added to the group
+- Verify privacy mode is disabled in BotFather

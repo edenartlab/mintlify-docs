@@ -1,0 +1,140 @@
+---
+title: Shopify
+description: Programmatically create and manage products in your Shopify store
+icon: shop
+---
+
+<Tip>
+**What is Shopify Integration?**  
+Eden's Shopify integration allows you to programmatically create and manage products in your Shopify store. This enables automated product creation, inventory management, and store operations through Eden's AI-powered tools.
+</Tip>
+
+## Prerequisites
+
+Before setting up Shopify integration, you'll need:
+
+- A Shopify store (either a paid plan or Shopify Plus)
+- Admin access to your Shopify store
+- Basic understanding of Shopify's admin interface
+
+## Setup Process
+
+<Steps>
+  <Step title="Create a Private App">
+    ### Log into Shopify Admin
+    
+    Go to your Shopify store's admin panel. If you need to create a new Shopify store:
+    - Go to [accounts.shopify.com](https://accounts.shopify.com/)
+    - Sign up and create a store
+    
+    Navigate to **Settings** → **Apps and sales channels**
+    
+    ### Create the app
+    
+    1. Click on **Develop apps** (or **Manage private apps** for older stores)
+    2. Click **Allow custom app development** if not already selected
+    
+    <img src="/img/shopify/app-dev.jpg" alt="Allow custom app development" style={{width: '50%'}} />
+    
+    3. Click **Create an app**
+    4. Give your app a name (e.g., "Eden Integration")
+    5. Select your email as the developer email
+    6. Click **Create app**
+  </Step>
+  
+  <Step title="Configure Permissions">
+    ### Set API scopes
+    
+    1. Click **Configure Admin API scopes**
+    2. Enable the following permissions:
+       - **Products**: `read_products`, `write_products`
+       - **Inventory**: `read_inventory`, `write_inventory`
+       - **Locations**: `read_locations`, `write_locations`
+       - **Publications**: `read_publications`, `write_publications`
+    3. Click **Save**
+    
+    ### Install the app
+    
+    1. Click **Install app** to install it on your store
+    2. Confirm the installation
+    
+    <Note>
+    You may need to close and reopen settings for the install button to enable.
+    </Note>
+  </Step>
+  
+  <Step title="Get Your Credentials">
+    ### Access Token
+    
+    After installing:
+    1. In your app's overview page, find **Admin API access token**
+    2. Click **Reveal token once**
+    3. **Copy immediately** - you won't see it again!
+    4. The token should start with `shpat`
+    
+    ### Store Name
+    
+    Your store name is the subdomain of your Shopify store.  
+    Example: For `mystore.myshopify.com`, your store name is `mystore`
+    
+    <img src="/img/shopify/store-name.png" alt="Store name example" style={{width: '50%'}} />
+    
+    ### Location ID
+    
+    1. Go to **Settings** → **Locations**
+    2. Select your primary location
+    3. Note the **Location ID** from the URL (numeric value at the end)
+    
+    <img src="/img/shopify/store-location.png" alt="Store location ID" style={{width: '50%'}} />
+  </Step>
+  
+  <Step title="Configure Eden Agent">
+    Configure the corresponding variables for your Eden agent deployment:
+    
+    <img src="/img/shopify/agent-deployment.png" alt="Agent configuration" style={{width: '75%'}} />
+  </Step>
+</Steps>
+
+## Usage
+
+Once deployed, prompt your Agent to create a Shopify product!
+
+<img src="/img/shopify/product.png" alt="Creating a product on Shopify" style={{width: '50%'}} />
+
+## Configuration Variables
+
+<ParamField path="SHOPIFY_STORE_NAME" type="string" required>
+  Your store's subdomain (e.g., `mystore` for `mystore.myshopify.com`)
+</ParamField>
+
+<ParamField path="SHOPIFY_API_VERSION" type="string">
+  The Shopify API version to use (recommended: `2025-07`)
+</ParamField>
+
+<ParamField path="SHOPIFY_ACCESS_TOKEN" type="string" required>
+  The admin API access token from your private app
+</ParamField>
+
+<ParamField path="SHOPIFY_LOCATION_ID" type="string" required>
+  The numeric ID of your primary location for inventory management
+</ParamField>
+
+<ParamField path="DEBUG" type="boolean">
+  Enable debug logging for troubleshooting (optional)
+</ParamField>
+
+## Security Best Practices
+
+<Cards>
+  <Card title="Rotate Tokens" icon="arrows-rotate">
+    Regenerate your access token periodically
+  </Card>
+  
+  <Card title="Monitor Usage" icon="chart-line">
+    Keep track of API calls to avoid rate limits
+  </Card>
+  
+  <Card title="Minimal Permissions" icon="lock">
+    Only grant the permissions your integration needs
+  </Card>
+</Cards>

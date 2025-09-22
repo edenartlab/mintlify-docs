@@ -1,0 +1,124 @@
+---
+title: Discord
+description: Deploy your Eden agent to Discord servers
+icon: discord
+---
+
+<Info>
+Deployments are experimental and currently in private beta. If you're interested in testing it now, please reach out to the devs on [Discord](https://discord.com/invite/4dSYwDT).
+</Info>
+
+Users who have been granted access to the deployment beta will notice a "Deployments" section in each Agent's settings. Through this interface, you can deploy your agent to Discord or [Telegram](/integrations/telegram).
+
+## Setup Process
+
+<Steps>
+  <Step title="Create Discord Application">
+    ### Create application in Discord
+    
+    Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create a new application.
+    
+    <img src="/img/discord1.jpg" alt="Select 'New Application'" />
+    
+    Give your application a name (e.g. "My Agent") and click "Create". For convenience, use the same name as your agent.
+    
+    In "General Information":
+    - Upload your agent's profile image to App Icon
+    - Click 'Save' to save the changes
+    
+    <img src="/img/discord2.jpg" alt="Discord deployment settings" />
+    
+    ### Configure Bot Settings
+    
+    1. Click "Bot" on the left sidebar
+    2. Click "Reset Token" to generate a new token and copy it somewhere safe
+    
+    <img src="/img/discord3.jpg" alt="Generate and copy token" />
+    
+    <Warning>
+    If you ever reset or revoke the token, your bot will stop working. You can always generate a new token and paste it again into Eden.
+    </Warning>
+    
+    3. Scroll down to "Privileged Gateway Intents" and enable:
+       - Presence Intent
+       - Server Members Intent  
+       - Message Content Intent
+    
+    Click "Save Changes" after enabling these permissions.
+    
+    <img src="/img/discord/_100003.jpg" alt="Gateway Intents" />
+  </Step>
+  
+  <Step title="Link Bot to Eden Agent">
+    ### Configure Eden Deployment
+    
+    Go to your agent's deployment settings in Eden:
+    1. Select Discord
+    2. Paste the Discord Token you copied earlier
+    
+    <img src="/img/discord_deployment.jpg" alt="Discord deployment configuration" style={{width: '80%'}} />
+    
+    ### Set Up Allowed Channels
+    
+    First, enable Developer Mode in Discord:
+    
+    <Tabs>
+      <Tab title="Step 1: Open Settings">
+        <img src="/img/discord/_100001.jpg" alt="User settings" style={{width: '40%'}} />
+      </Tab>
+      <Tab title="Step 2: Enable Developer Mode">
+        Search for "developer" and activate developer mode in advanced settings:
+        <img src="/img/discord/_100002.jpg" alt="Developer mode" />
+      </Tab>
+    </Tabs>
+    
+    To add channels:
+    1. Right-click any channel name in Discord
+    2. Select "Copy Channel ID"
+    3. Add the ID to "Allowed Channels" in Eden
+    4. Add a label for the channel so you remember it
+    
+    <img src="/img/discord/_100000.jpg" alt="Copy Channel ID" style={{width: '20%'}} />
+    
+    Click "Deploy" when you're done.
+  </Step>
+  
+  <Step title="Add Bot to Server">
+    After successful deployment:
+    
+    1. Copy the "Invite Bot to Server" link from Eden
+    2. Paste it into a browser
+    3. Select your server and add the bot
+    
+    <img src="/img/discord/discord1.jpg" alt="Invite link" />
+    
+    Your bot will show as "Online" in your Discord server sidebar when ready.
+    
+    <img src="/img/discord/discord2.jpg" alt="Bot online status" style={{width: '40%'}} />
+  </Step>
+</Steps>
+
+## Testing Your Agent
+
+Go to one of the allowed channels and mention your bot in a message. If it responds, you're all set!
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Bot not responding">
+    Common issues:
+    - Check the bot has "Send Messages" permissions in the channel
+    - Verify the channel ID is in the allowed channels list
+    - Ensure gateway intents are enabled
+  </Accordion>
+  
+  <Accordion title="Private channel setup">
+    For private channels, manually add the bot as a member:
+    
+    1. Right-click the channel and click "Edit Channel"
+    <img src="/img/discord/_100004.jpg" alt="Edit channel" style={{width: '40%'}} />
+    
+    2. Go to Permissions → Add Members → Add your bot
+    <img src="/img/discord/_100005.jpg" alt="Add permissions" style={{width: '90%'}} />
+  </Accordion>
+</AccordionGroup>

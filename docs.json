@@ -87,6 +87,27 @@
         ]
       },
       {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Social Media",
+            "pages": [
+              "integrations/discord",
+              "integrations/telegram",
+              "integrations/twitter",
+              "integrations/farcaster"
+            ]
+          },
+          {
+            "group": "E-commerce",
+            "pages": [
+              "integrations/shopify",
+              "integrations/printify"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API reference",
         "groups": [
           {

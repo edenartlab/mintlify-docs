@@ -1,0 +1,132 @@
+---
+title: Printify
+description: Create and manage print-on-demand products through Printify
+icon: shirt
+---
+
+<Tip>
+**What is Printify Integration?**  
+Eden's Printify integration allows you to programmatically create and manage print-on-demand products through Printify's network of print providers. This enables automated product creation, design management, and fulfillment through Eden's AI-powered tools.
+</Tip>
+
+<Warning>
+Printify is a drop-shipping service and will use its own connection to Shopify. This replaces the Eden Shopify integration. The Eden Shopify integration is best suited for physical goods where you have inventory on-hand.
+</Warning>
+
+## Prerequisites
+
+Before setting up Printify integration, you'll need:
+
+- A Printify account (free to create)
+- Access to Printify's Merchant Dashboard
+- Basic understanding of print-on-demand products & the Printify platform
+- A connected sales channel (Shopify, WooCommerce, etc.) for selling products
+
+## Setup Process
+
+<Steps>
+  <Step title="Create Printify Account">
+    ### Sign up for Printify
+    
+    1. Go to [printify.com](https://printify.com)
+    2. Click **Sign Up** and create your account
+    3. Verify your email address
+    
+    ### Complete setup
+    - Fill in your business information
+    - Set up your payment method
+    - Connect your sales channel (see warning if using Shopify)
+    - Complete required verification steps
+  </Step>
+  
+  <Step title="Generate API Token">
+    ### Access API Settings
+    
+    1. Log into your Printify Merchant Dashboard
+    2. Click the burger menu in the top right
+    3. Go to **Account** → **Connections**
+    
+    <img src="/img/printify/connections.png" alt="Connections menu" style={{width: '50%'}} />
+    
+    ### Generate token
+    
+    1. Go to **API tokens**
+    2. Click **Generate**
+    3. Select the following **Custom scopes**:
+       - `shops.read`
+       - `catalog.read`
+       - `products.read`
+       - `products.write`
+       - `uploads.write`
+       - `print_providers.read`
+    4. Click **Generate token**
+    5. Copy to clipboard and add to your Eden deployment
+    
+    <img src="/img/printify/scopes.png" alt="API Key Scopes" style={{width: '50%'}} />
+  </Step>
+  
+  <Step title="Connect to Shopify">
+    ### Connect your store
+    
+    1. Click the merchant icon next to the burger menu
+    2. Scroll to Shopify, click **Connect to Shopify**
+    3. Click **Continue**
+    4. Either:
+       - Create a new Shopify account (follow "1. Create your Shopify account")
+       - Or connect existing store (use "2. Connect it with Printify")
+    5. Enter your store URL and click **Connect**
+    6. Click **Install** for the Printify: Print on Demand add-on
+    7. Once connected, close the tab and click **3. Complete the setup** → **I've completed my setup**
+    
+    <img src="/img/printify/shopify.png" alt="Shopify setup" style={{width: '50%'}} />
+  </Step>
+</Steps>
+
+## Important Notes
+
+<Card title="One-way Sync" icon="arrows-rotate">
+  Products created in Printify will sync to Shopify automatically
+</Card>
+
+<Card title="Inventory Management" icon="boxes">
+  Printify handles inventory for print-on-demand products
+</Card>
+
+<Card title="Fulfillment" icon="truck">
+  Orders placed on Shopify will be automatically sent to Printify for fulfillment
+</Card>
+
+<Card title="Pricing" icon="dollar-sign">
+  Set your profit margins in Printify, not Shopify
+</Card>
+
+## Understanding Printify Products
+
+Printify products consist of:
+
+<Tabs>
+  <Tab title="Components">
+    - **Base Product**: The physical item (t-shirt, mug, poster, etc.)
+    - **Print Provider**: The company that prints and fulfills your products
+    - **Design**: Your artwork or text that gets printed on the product
+    - **Variants**: Different sizes, colors, or styles of the same product
+  </Tab>
+  
+  <Tab title="Templates">
+    Your agent has access to Eden's physical item & print provider template lists and can generate products according to these. Alternatively, browse the Printify catalog from your dashboard and request specific items.
+  </Tab>
+</Tabs>
+
+## Configuration Variables
+
+<ParamField path="PRINTIFY_API_TOKEN" type="string" required>
+  Your Printify API token with the required permissions
+</ParamField>
+
+<ParamField path="DEFAULT_PRODUCT_JSON_PATH" type="string">
+  Default path for product configuration files (optional)
+</ParamField>
+
+<ParamField path="DEBUG" type="boolean">
+  Enable debug logging for troubleshooting (optional)
+</ParamField>
