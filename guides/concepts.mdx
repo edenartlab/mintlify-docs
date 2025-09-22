@@ -1,0 +1,197 @@
+---
+title: Training Models
+description: Train custom LoRA models for consistent characters, objects, and styles
+---
+
+A limitation of generative models is that they can only generate things they've been trained on. But what if you want to consistently compose with a specific object, person's face, or artistic style not found in the original training data? This is where *Concepts* come in.
+
+Concepts are custom characters, objects, styles, or specific people which have been trained and added by Eden users to the Eden generators' knowledge base, using the [LoRA technique](https://arxiv.org/abs/2106.09685). With concepts, users are able to consistently reproduce specific content and styles in their creations.
+
+Concepts are first trained by uploading example images to the [SDXL trainer](https://beta.eden.art/train/lora_trainer). Training takes around 10 minutes. Once trained, the concept becomes available in all endpoints, including images and video.
+
+## Training
+
+Train concepts through the [training UI](https://beta.eden.art/train/lora_trainer) or the [SDK](/guides/sdk).
+
+### Selecting your training set
+
+You need just a few images:
+- **Faces/objects**: 4-10 images usually sufficient
+- **Styles**: Can use hundreds or thousands for diverse styles
+
+<Tabs>
+  <Tab title="Tips for training images">
+    - **Selective diversity**: Maximize variance of everything you're *not* trying to learn
+    - **High resolution**: At least 768x768 pixels
+    - **Center-cropped**: Target subject should be in center square
+    - **Prominence**: Feature target prominently
+    
+    <Tip>
+    The choice of training images is the biggest factor determining quality. If unsatisfied, try different images before adjusting settings.
+    </Tip>
+  </Tab>
+  
+  <Tab title="Custom prompts (optional)">
+    Override automatic prompts by uploading text files matching image names:
+    - `1.txt` for `1.jpg`
+    - `image2.txt` for `image2.png`
+    
+    Each text file should contain the prompt for that image.
+  </Tab>
+</Tabs>
+
+### Training parameters
+
+<ParamField path="required" type="object">
+  <Expandable title="Required parameters">
+    <ParamField path="training_images" type="files">
+      Upload images (jpg, png, webm) or zip files. Max 10 files, 100MB each. Can include text files for custom prompts.
+    </ParamField>
+    
+    <ParamField path="concept_name" type="string">
+      How you'll reference the concept in prompts. Names don't need to be unique.
+    </ParamField>
+    
+    <ParamField path="training_mode" type="string">
+      - **object**: All non-human faces and things
+      - **face**: Human faces only
+      - **style**: Abstract style characteristics
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField path="optional" type="object">
+  <Expandable title="Optional parameters (rarely need changing)">
+    <ParamField path="train_steps" type="number">
+      Training duration. More steps = better fit but risk of overfitting.
+    </ParamField>
+    
+    <ParamField path="random_flip" type="boolean">
+      Doubles samples by horizontal flipping. Off for text/logos or face mode.
+    </ParamField>
+    
+    <ParamField path="lora_rank" type="number">
+      LoRA dimension. Higher = more capacity but overfitting risk.
+    </ParamField>
+    
+    <ParamField path="train_resolution" type="number">
+      Training resolution. Lower (768) useful for faces in larger scenes.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<Tip>
+Training at lower resolutions (e.g. 768) can be useful if you want to learn a face but prompt it in settings where the face is only part of the image. Using init_images with rough shape composition helps in this scenario.
+</Tip>
+
+## Concept types
+
+### Faces
+
+Optimized for human faces. Use object mode for non-human faces.
+
+<Warning>
+Face mode is highly optimized for human faces only. Use object mode for cartoon characters or animals.
+</Warning>
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/xander_training_images.jpg" alt="Face training images" />
+
+Reference in prompts:
+- Xander as a character in a noir graphic novel
+- concept as a knight in shining armour (using angle brackets)
+- Xander as the Mona Lisa (using angle brackets)
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/xander_generated_images.jpg" alt="Generated images with concept" />
+
+### Objects
+
+For all "things" besides human faces: physical objects, characters, cartoons.
+
+<Tip>
+10 really good, diverse HD images is usually better than 100 low-quality or similar images.
+</Tip>
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/koji_training_imgs.jpg" alt="Object training images" />
+
+Prompt examples:
+- a photo of kojii surfing a wave (using angle brackets)
+- kojii in a snowglobe
+- a low-poly artwork of Kojii
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/koji_grid.jpg" alt="Generated with object concept" />
+
+### Styles
+
+Model artistic styles or genres, focusing on abstract characteristics rather than content.
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/suave_training_imgs.jpg" alt="Style training images" />
+
+With style concepts, you don't need to reference the concept - just prompt normally and the style will be applied.
+
+<img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/suave_generated_imgs.jpg" alt="Generated with style concept" />
+
+Styles can capture various aesthetics, color palettes, layout patterns, or abstract notions like [knolling](https://www.google.com/search?q=knolling&tbm=isch):
+
+<img src="/img/knolling_training.jpg" alt="Knolling training set" />
+<img src="/img/knolling_generated.jpg" alt="Generated knolling images" />
+
+## Generating with concepts
+
+Once trained, select your concept in the [creation tool](https://beta.eden.art/create) and trigger it by name or `<concept>` in prompts.
+
+## Exporting LoRAs
+
+Eden concepts are compatible with other tools supporting LoRA.
+
+<img src="/img/download_concept.jpg" alt="Download concept as .tar file" />
+
+### AUTOMATIC1111
+
+<Steps>
+  <Step title="Download and extract">
+    Download concept and extract the .tar file
+  </Step>
+  
+  <Step title="Install files">
+    - Put `[lora_name]_lora.safetensors` in `stable-diffusion-webui/models/Lora`
+    - Put `[lora_name]_embeddings.safetensors` in `stable-diffusion-webui/embeddings`
+  </Step>
+  
+  <Step title="Configure">
+    Use [JuggernautXL_v6](https://civitai.com/models/133005/juggernaut-xl) as base checkpoint
+  </Step>
+  
+  <Step title="Trigger in prompt">
+    Load both embedding AND LoRA weights by triggering in prompt
+  </Step>
+</Steps>
+
+<img src="/img/auto1111.jpg" alt="Using LoRA in AUTOMATIC1111" />
+
+<Tip>
+- **Face/Object modes**: Use `[lora_name]_embeddings` in prompt
+- **Style concepts**: Use `"... in the style of [lora_name]_embeddings"`
+</Tip>
+
+### ComfyUI
+
+<Steps>
+  <Step title="Install files">
+    - Put `[lora_name]_lora.safetensors` in `ComfyUI/models/loras`
+    - Put `[lora_name]_embeddings.safetensors` in `ComfyUI/models/embeddings`
+  </Step>
+  
+  <Step title="Load LoRA">
+    Use "Load LoRA" node and adjust strength
+  </Step>
+  
+  <Step title="Trigger concept">
+    Reference with `embedding:[lora_name]_embeddings` in prompt
+  </Step>
+</Steps>
+
+<img src="/img/comfy.jpeg" alt="Using in ComfyUI" />
+
+<Note>
+LoRA strength has relatively small effect because Eden concepts optimize token embeddings rather than LoRA matrices.
+</Note>

@@ -7,7 +7,7 @@
     "light": "#9e66f7",
     "dark": "#7025a3"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
@@ -15,7 +15,20 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index"]
+            "pages": ["index", "overview/manna"]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/agents",
+              "guides/creation",
+              "guides/concepts",
+              "guides/sdk"
+            ]
+          },
+          {
+            "group": "Legal",
+            "pages": ["legal/tos", "legal/privacy"]
           }
         ]
       },
@@ -92,8 +105,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/light.png",
+    "dark": "/eden-logo-with-text.png"
   },
   "navbar": {
     "links": [
