@@ -1,0 +1,520 @@
+---
+title: Building with Eden
+description: A complete guide to building applications with the Eden API
+---
+
+<Info>
+This guide walks through building a full-featured Eden application using our [hello-eden](https://github.com/edenartlab/hello-eden) starter repository.
+</Info>
+
+## Overview
+
+The [hello-eden](https://github.com/edenartlab/hello-eden) repository is a production-ready Next.js application that demonstrates best practices for integrating with the Eden API. It showcases all major Eden features including AI-powered creation, agent interactions, and content browsing.
+
+<Card title="Hello Eden Repository" icon="github" href="https://github.com/edenartlab/hello-eden">
+  Clone the starter repository to follow along with this guide
+</Card>
+
+## What You'll Build
+
+By following this guide, you'll learn how to:
+
+- **Generate AI content** - Submit creation tasks for images and videos
+- **Build chat interfaces** - Create interactive sessions with Eden agents
+- **Browse creations** - Implement galleries with filtering and pagination
+- **Handle authentication** - Properly manage API keys and credentials
+- **Poll for results** - Implement efficient polling patterns for async operations
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- Node.js 18+ and pnpm installed
+- Basic familiarity with React and Next.js
+- Eden API credentials (request in [Discord](https://discord.com/invite/4dSYwDT))
+
+## Quick Start
+
+### 1. Clone and Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/edenartlab/hello-eden.git
+cd hello-eden
+
+# Install dependencies
+pnpm install
+
+# Copy environment template
+cp .env.local.example .env.local
+```
+
+### 2. Configure Environment
+
+Edit `.env.local` with your credentials:
+
+```env
+EDEN_API_KEY=your_api_key_here
+NEXT_PUBLIC_EDEN_AGENT_ID=your_agent_id_here
+NEXT_PUBLIC_EDEN_API_BASE=https://api.eden.art  # Optional
+```
+
+<Warning>
+Keep your `EDEN_API_KEY` private! Never commit it to version control or expose it in client-side code.
+</Warning>
+
+### 3. Run the Application
+
+```bash
+pnpm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to see your app running.
+
+## Core Concepts
+
+### API Client Structure
+
+The hello-eden app uses a centralized API client (`src/lib/eden.ts`) that wraps all Eden API interactions. This pattern provides:
+
+- Type-safe interfaces for all API responses
+- Centralized error handling
+- Consistent authentication headers
+- Clean separation between API logic and UI components
+
+<CodeGroup>
+```typescript API Client Setup
+const EDEN_API_BASE = 
+  process.env.NEXT_PUBLIC_EDEN_API_BASE || "https://api.eden.art";
+
+// Always include API key in server-side requests
+const headers = {
+  "Content-Type": "application/json",
+  "X-Api-Key": process.env.EDEN_API_KEY || ""
+};
+```
+
+```typescript Type Definitions
+export interface Task {
+  taskId: string;
+  status: "pending" | "processing" | "completed" | "failed";
+  creation?: {
+    uri: string;
+  };
+}
+
+export interface Creation {
+  _id: string;
+  uri?: string;
+  prompt?: string;
+  tool?: string;
+  user?: {
+    username?: string;
+  };
+}
+```
+</CodeGroup>
+
+### Authentication Pattern
+
+The app uses Next.js API routes as a backend-for-frontend (BFF) pattern to keep API keys secure:
+
+1. **Client** makes requests to Next.js API routes
+2. **API Route** adds authentication headers
+3. **API Route** forwards request to Eden API
+4. **Response** flows back through the same chain
+
+This ensures your API key never reaches the client browser.
+
+## Feature Implementation
+
+### Creating Images and Videos
+
+The creation flow involves submitting a task and polling for completion:
+
+<Steps>
+  <Step title="Submit Creation Task">
+    Send a POST request to `/v2/tasks/create` with your prompt and configuration
+    
+    ```typescript
+    export async function createTask(prompt: string, type: "image" | "video") {
+      const response = await fetch(`${EDEN_API_BASE}/v2/tasks/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": process.env.EDEN_API_KEY || "",
+        },
+        body: JSON.stringify({
+          tool: "create",
+          args: {
+            prompt: prompt,
+            output: type === "video" ? "video" : undefined
+          },
+          makePublic: true
+        })
+      });
+      
+      const data = await response.json();
+      return { taskId: data.task._id };
+    }
+    ```
+  </Step>
+  
+  <Step title="Poll for Completion">
+    Check task status every few seconds until completed
+    
+    ```typescript
+    export async function pollTask(taskId: string): Promise<Task> {
+      const response = await fetch(`${EDEN_API_BASE}/v2/tasks/${taskId}`, {
+        method: "GET",
+        headers: {
+          "X-Api-Key": process.env.EDEN_API_KEY || "",
+        }
+      });
+      
+      const data = await response.json();
+      return {
+        taskId: data.task._id,
+        status: data.task.status,
+        creation: data.task.result?.[0]?.output?.[0]
+      };
+    }
+    ```
+  </Step>
+  
+  <Step title="Display Result">
+    Show the generated content once the task completes
+    
+    ```typescript
+    // In your React component
+    const [polling, setPolling] = useState(false);
+    const [result, setResult] = useState<string | null>(null);
+    
+    useEffect(() => {
+      if (!polling) return;
+      
+      const interval = setInterval(async () => {
+        const task = await pollTask(taskId);
+        
+        if (task.status === "completed") {
+          setResult(task.creation?.uri || null);
+          setPolling(false);
+        } else if (task.status === "failed") {
+          setPolling(false);
+          // Handle error
+        }
+      }, 3000);
+      
+      return () => clearInterval(interval);
+    }, [polling, taskId]);
+    ```
+  </Step>
+</Steps>
+
+### Building Agent Chat Interfaces
+
+Eden agents support interactive conversations through sessions:
+
+<CodeGroup>
+```typescript Create Session
+export async function createSession(agentIds: string[]) {
+  const response = await fetch(`${EDEN_API_BASE}/v2/sessions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Api-Key": process.env.EDEN_API_KEY || "",
+    },
+    body: JSON.stringify({
+      agent_ids: agentIds,
+      autonomy_settings: {
+        auto_reply: true,
+        reply_interval: 1000,
+        actor_selection_method: "random"
+      }
+    })
+  });
+  
+  const data = await response.json();
+  return { session_id: data.session_id };
+}
+```
+
+```typescript Send Message
+export async function sendMessage(sessionId: string, content: string) {
+  await fetch(`${EDEN_API_BASE}/v2/sessions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Api-Key": process.env.EDEN_API_KEY || "",
+    },
+    body: JSON.stringify({
+      session_id: sessionId,
+      content: content
+    })
+  });
+}
+```
+
+```typescript Poll for Updates
+export async function getSession(sessionId: string) {
+  const response = await fetch(`${EDEN_API_BASE}/v2/sessions/${sessionId}`, {
+    method: "GET",
+    headers: {
+      "X-Api-Key": process.env.EDEN_API_KEY || "",
+    }
+  });
+  
+  const data = await response.json();
+  return data.session;
+}
+```
+</CodeGroup>
+
+### Browsing and Filtering Creations
+
+Implement galleries with advanced filtering:
+
+```typescript
+export async function getCreations(filters?: {
+  cursor?: string;
+  limit?: number;
+  type?: "image" | "video";
+  onlyMine?: boolean;
+  onlyAgents?: boolean;
+}) {
+  const params = new URLSearchParams();
+  
+  // Pagination
+  if (filters?.cursor) params.append("cursor", filters.cursor);
+  params.append("limit", (filters?.limit || 20).toString());
+  
+  // Type filtering
+  if (filters?.type) {
+    params.append("filter", `output_type;${filters.type}`);
+  }
+  
+  // Agent filtering
+  if (filters?.onlyAgents && process.env.NEXT_PUBLIC_EDEN_AGENT_ID) {
+    params.append("filter", `agent;${process.env.NEXT_PUBLIC_EDEN_AGENT_ID}`);
+  }
+  
+  const response = await fetch(
+    `${EDEN_API_BASE}/v2/feed-cursor/creations?${params}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        // Include API key for private content
+        ...(filters?.onlyMine && {
+          "X-Api-Key": process.env.EDEN_API_KEY || ""
+        })
+      }
+    }
+  );
+  
+  const data = await response.json();
+  return {
+    docs: data.docs,
+    nextCursor: data.nextCursor,
+    hasMore: data.docs?.length === filters?.limit
+  };
+}
+```
+
+## Best Practices
+
+### Error Handling
+
+Always implement robust error handling for API calls:
+
+```typescript
+try {
+  const response = await fetch(endpoint, options);
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error(`Eden API Error ${response.status}:`, errorText);
+    throw new Error(`Eden API ${response.status}: ${errorText}`);
+  }
+  
+  return await response.json();
+} catch (error) {
+  console.error("Failed to make API call:", error);
+  // Show user-friendly error message
+  throw error;
+}
+```
+
+### Rate Limiting
+
+Be mindful of API rate limits:
+
+- Implement exponential backoff for retries
+- Cache responses when appropriate
+- Batch requests where possible
+- Use reasonable polling intervals (3-5 seconds)
+
+### Security
+
+- **Never expose API keys** in client-side code
+- Use environment variables for all credentials
+- Implement proper CORS headers in production
+- Validate and sanitize all user inputs
+- Use HTTPS for all API communications
+
+### Performance
+
+- Implement loading states for better UX
+- Use React hooks for efficient state management
+- Lazy load images and videos
+- Implement pagination for large datasets
+- Cache API responses when appropriate
+
+## Common Patterns
+
+### Polling Pattern
+
+```typescript
+const usePollTask = (taskId: string | null) => {
+  const [task, setTask] = useState<Task | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    if (!taskId) return;
+    
+    let cancelled = false;
+    
+    const poll = async () => {
+      try {
+        const result = await pollTask(taskId);
+        if (!cancelled) {
+          setTask(result);
+          
+          if (result.status === "pending" || result.status === "processing") {
+            setTimeout(poll, 3000);
+          }
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message);
+        }
+      }
+    };
+    
+    poll();
+    
+    return () => {
+      cancelled = true;
+    };
+  }, [taskId]);
+  
+  return { task, error };
+};
+```
+
+### API Route Pattern
+
+```typescript
+// pages/api/tasks/create.ts
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    
+    const response = await fetch(`${EDEN_API_BASE}/v2/tasks/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": process.env.EDEN_API_KEY || "",
+      },
+      body: JSON.stringify(body)
+    });
+    
+    if (!response.ok) {
+      return Response.json(
+        { error: "Failed to create task" },
+        { status: response.status }
+      );
+    }
+    
+    const data = await response.json();
+    return Response.json(data);
+  } catch (error) {
+    return Response.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## Deployment
+
+### Environment Variables
+
+When deploying to production, ensure all environment variables are properly configured:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `EDEN_API_KEY` | Yes | Your Eden API key for authentication |
+| `NEXT_PUBLIC_EDEN_AGENT_ID` | Yes | Default agent ID for chat features |
+| `NEXT_PUBLIC_EDEN_API_BASE` | No | API endpoint (defaults to production) |
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion title="Task creation returns 401 Unauthorized">
+    **Solution**: Verify your API key is correct and included in the request headers. Check that the environment variable is properly loaded.
+  </Accordion>
+  
+  <Accordion title="Polling never completes">
+    **Solution**: Some tasks may take longer to process. Increase your polling timeout or implement a maximum retry count to prevent infinite polling.
+  </Accordion>
+  
+  <Accordion title="CORS errors in browser">
+    **Solution**: Make sure you're calling your Next.js API routes, not the Eden API directly from the browser. The API routes should proxy requests to Eden.
+  </Accordion>
+  
+  <Accordion title="Agent not responding in chat">
+    **Solution**: Verify the agent ID exists and is active. Check that autonomy settings are properly configured for auto-reply.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Now that you have a working Eden application, explore these advanced features:
+
+<CardGroup cols={2}>
+  <Card title="Custom Agents" icon="robot" href="/guides/agents">
+    Learn how to create and configure custom AI agents
+  </Card>
+  
+  <Card title="Advanced Creation" icon="wand-magic-sparkles" href="/guides/creation">
+    Explore all creation tools and parameters
+  </Card>
+  
+  <Card title="SDK Reference" icon="code" href="/guides/sdk">
+    Deep dive into the Eden SDK capabilities
+  </Card>
+  
+  <Card title="API Documentation" icon="book" href="/api-reference/introduction">
+    Complete API reference and endpoints
+  </Card>
+</CardGroup>
+
+## Resources
+
+- [Hello Eden Repository](https://github.com/edenartlab/hello-eden) - Starter code
+- [Eden Discord](https://discord.com/invite/4dSYwDT) - Get help and API keys
+- [API Documentation](https://api.eden.art/documentation) - Full API reference
+- [Eden App](https://app.eden.art) - Try Eden features in the browser
+
+## Support
+
+Need help? Join our [Discord community](https://discord.com/invite/4dSYwDT) where you can:
+
+- Request API keys
+- Get implementation help
+- Report bugs and issues
+- Share your creations
+- Connect with other developers

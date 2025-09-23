@@ -20,6 +20,7 @@
           {
             "group": "Guides",
             "pages": [
+              "guides/hello-eden",
               "guides/agents",
               "guides/creation",
               "guides/concepts",
