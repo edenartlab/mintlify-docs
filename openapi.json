@@ -337,38 +337,6 @@
         }
       }
     },
-    "/v2/agents/deployments": {
-      "get": {
-        "summary": "Get User Deployments",
-        "description": "Retrieve all deployments across all agents owned by the authenticated user.",
-        "tags": [
-          "Agents"
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "deployments": {
-                      "type": "array",
-                      "items": {}
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v2/agents/shared": {
       "get": {
         "summary": "Get Shared Agents",
@@ -408,38 +376,6 @@
                           "grantedAt"
                         ]
                       }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/triggers": {
-      "get": {
-        "summary": "Get User Triggers",
-        "description": "Retrieve all triggers across all agents owned by the authenticated user.",
-        "tags": [
-          "Agents"
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "triggers": {
-                      "type": "array",
-                      "items": {}
                     }
                   }
                 }
@@ -1057,126 +993,6 @@
         }
       }
     },
-    "/v2/agents/{agentId}/deployments": {
-      "get": {
-        "summary": "Get Agent Deployments",
-        "description": "Retrieve all platform deployments (Discord, Twitter, etc.) for a specific agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "post": {
-        "summary": "Deploy Agent",
-        "description": "Deploy an agent to a platform or update an existing deployment configuration.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "deploymentId": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "deploymentId"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update Agent Deployment",
-        "description": "Modify the configuration or settings of an existing agent deployment.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/deployments/{platform}": {
-      "delete": {
-        "summary": "Delete Agent Deployment",
-        "description": "Remove an agent deployment from a specific platform, stopping its operation there.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "platform",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
     "/v2/agents/{agentId}/like": {
       "post": {
         "summary": "Like Agent",
@@ -1338,584 +1154,6 @@
                   "properties": {
                     "message": {
                       "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory": {
-      "get": {
-        "summary": "Get Agent Memory",
-        "description": "Retrieve the personalized memory content and unabsorbed directives for a specific agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "content": {
-                      "type": "string"
-                    },
-                    "unabsorbedDirectives": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string"
-                          },
-                          "content": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "_id",
-                          "content"
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Save Agent Memory",
-        "description": "Store or update personalized memory content for an agent to improve future interactions.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "content"
-                ]
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory-agent": {
-      "get": {
-        "summary": "Get Collective Memory",
-        "description": "Retrieve all collective memory shards and their facts for an agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "shards": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string"
-                          },
-                          "agent_id": {},
-                          "content": {
-                            "type": "string"
-                          },
-                          "extraction_prompt": {
-                            "type": "string"
-                          },
-                          "is_active": {
-                            "type": "boolean"
-                          },
-                          "facts": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "_id": {
-                                  "type": "string"
-                                },
-                                "content": {
-                                  "type": "string"
-                                },
-                                "createdAt": {
-                                  "type": "string"
-                                },
-                                "updatedAt": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "_id",
-                                "content"
-                              ]
-                            }
-                          },
-                          "unabsorbed_memory_ids": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "_id": {
-                                  "type": "string"
-                                },
-                                "content": {
-                                  "type": "string"
-                                },
-                                "createdAt": {
-                                  "type": "string"
-                                },
-                                "updatedAt": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "_id",
-                                "content"
-                              ]
-                            }
-                          }
-                        },
-                        "required": [
-                          "_id",
-                          "agent_id",
-                          "facts",
-                          "unabsorbed_memory_ids"
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Memory Shard",
-        "description": "Create a new collective memory shard with a specific extraction prompt for organizing agent knowledge.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "shard_name": {
-                    "minLength": 1,
-                    "maxLength": 50,
-                    "type": "string"
-                  },
-                  "extraction_prompt": {
-                    "minLength": 1,
-                    "maxLength": 2000,
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "shard_name",
-                  "extraction_prompt"
-                ]
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "shard_id": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory-agent/{memoryAgentId}": {
-      "patch": {
-        "summary": "Update Memory Agent",
-        "description": "Modify a memory_agent document containing collective memory data.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "memoryAgentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory-agent/{memoryAgentId}/memory/{memoryId}": {
-      "delete": {
-        "summary": "Remove Agent Memory",
-        "description": "Remove specific memory items from agent collective memory arrays (facts or unabsorbed memory).",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "memoryAgentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "memoryId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "arrayField": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "enum": [
-                          "facts"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "enum": [
-                          "unabsorbed_memory_ids"
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "arrayField"
-                ]
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory-user": {
-      "get": {
-        "summary": "Get Memory User",
-        "description": "Retrieve the complete memory_user document containing all user-specific data for an agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update Memory User",
-        "description": "Modify the memory_user document with updated user-specific information for an agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/memory/{memoryId}": {
-      "delete": {
-        "summary": "Remove Unabsorbed Memory",
-        "description": "Delete specific unabsorbed memory items from the user memory for an agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "memoryId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
                     }
                   }
                 }
@@ -2095,114 +1333,6 @@
         }
       }
     },
-    "/v2/agents/{agentId}/triggers": {
-      "get": {
-        "summary": "Get Agent Triggers",
-        "description": "Retrieve all automated triggers configured for a specific agent.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Agent Trigger",
-        "description": "Create a new automated trigger that activates the agent under specific conditions.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/v2/agents/{agentId}/triggers/{triggerId}": {
-      "patch": {
-        "summary": "Update Agent Trigger",
-        "description": "Modify the configuration or conditions of an existing agent trigger.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "triggerId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Agent Trigger",
-        "description": "Remove an automated trigger from an agent, stopping its activation.",
-        "tags": [
-          "Agents"
-        ],
-        "parameters": [
-          {
-            "required": true,
-            "in": "path",
-            "name": "agentId",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "required": true,
-            "in": "path",
-            "name": "triggerId",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
     "/v2/agents/{agentId}/user-memory-enabled": {
       "patch": {
         "summary": "Toggle Memory Setting",
@@ -2261,12 +1391,742 @@
         }
       }
     },
+    "/v2/agents/deployments": {
+      "get": {
+        "summary": "Get User Deployments",
+        "description": "Retrieve all deployments across all agents owned by the authenticated user.",
+        "tags": [
+          "Agents - Deployments"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deployments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/deployments": {
+      "get": {
+        "summary": "Get Agent Deployments",
+        "description": "Retrieve all platform deployments (Discord, Twitter, etc.) for a specific agent.",
+        "tags": [
+          "Agents - Deployments"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "summary": "Deploy Agent",
+        "description": "Deploy an agent to a platform or update an existing deployment configuration.",
+        "tags": [
+          "Agents - Deployments"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "deploymentId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "deploymentId"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Agent Deployment",
+        "description": "Modify the configuration or settings of an existing agent deployment.",
+        "tags": [
+          "Agents - Deployments"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/deployments/{platform}": {
+      "delete": {
+        "summary": "Delete Agent Deployment",
+        "description": "Remove an agent deployment from a specific platform, stopping its operation there.",
+        "tags": [
+          "Agents - Deployments"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "platform",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory": {
+      "get": {
+        "summary": "Get Agent Memory",
+        "description": "Retrieve the personalized memory content and unabsorbed directives for a specific agent.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "unabsorbedDirectives": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "_id",
+                          "content"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Save Agent Memory",
+        "description": "Store or update personalized memory content for an agent to improve future interactions.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory-agent": {
+      "get": {
+        "summary": "Get Collective Memory",
+        "description": "Retrieve all collective memory shards and their facts for an agent.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "shards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "agent_id": {},
+                          "content": {
+                            "type": "string"
+                          },
+                          "extraction_prompt": {
+                            "type": "string"
+                          },
+                          "is_active": {
+                            "type": "boolean"
+                          },
+                          "facts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                },
+                                "updatedAt": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "_id",
+                                "content"
+                              ]
+                            }
+                          },
+                          "unabsorbed_memory_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string"
+                                },
+                                "updatedAt": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "_id",
+                                "content"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "_id",
+                          "agent_id",
+                          "facts",
+                          "unabsorbed_memory_ids"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Memory Shard",
+        "description": "Create a new collective memory shard with a specific extraction prompt for organizing agent knowledge.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shard_name": {
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "type": "string"
+                  },
+                  "extraction_prompt": {
+                    "minLength": 1,
+                    "maxLength": 2000,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "shard_name",
+                  "extraction_prompt"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "shard_id": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory-agent/{memoryAgentId}": {
+      "patch": {
+        "summary": "Update Memory Agent",
+        "description": "Modify a memory_agent document containing collective memory data.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "memoryAgentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory-agent/{memoryAgentId}/memory/{memoryId}": {
+      "delete": {
+        "summary": "Remove Agent Memory",
+        "description": "Remove specific memory items from agent collective memory arrays (facts or unabsorbed memory).",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "memoryAgentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "memoryId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "arrayField": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "facts"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "unabsorbed_memory_ids"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "arrayField"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory-user": {
+      "get": {
+        "summary": "Get Memory User",
+        "description": "Retrieve the complete memory_user document containing all user-specific data for an agent.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Memory User",
+        "description": "Modify the memory_user document with updated user-specific information for an agent.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/memory/{memoryId}": {
+      "delete": {
+        "summary": "Remove Unabsorbed Memory",
+        "description": "Delete specific unabsorbed memory items from the user memory for an agent.",
+        "tags": [
+          "Agents - Memory"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "memoryId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v2/memory-sessions/{memoryId}": {
       "get": {
         "summary": "Get Memory Session",
         "description": "Retrieve a specific memory_session document containing session-specific memory data.",
         "tags": [
-          "Agents"
+          "Agents - Memory"
         ],
         "parameters": [
           {
@@ -2293,7 +2153,7 @@
         "summary": "Update Memory Session",
         "description": "Modify a memory_session document with updated session-specific information.",
         "tags": [
-          "Agents"
+          "Agents - Memory"
         ],
         "parameters": [
           {
@@ -2337,6 +2197,146 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v2/agents/triggers": {
+      "get": {
+        "summary": "Get User Triggers",
+        "description": "Retrieve all triggers across all agents owned by the authenticated user.",
+        "tags": [
+          "Agents - Triggers"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "triggers": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/triggers": {
+      "get": {
+        "summary": "Get Agent Triggers",
+        "description": "Retrieve all automated triggers configured for a specific agent.",
+        "tags": [
+          "Agents - Triggers"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Agent Trigger",
+        "description": "Create a new automated trigger that activates the agent under specific conditions.",
+        "tags": [
+          "Agents - Triggers"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v2/agents/{agentId}/triggers/{triggerId}": {
+      "patch": {
+        "summary": "Update Agent Trigger",
+        "description": "Modify the configuration or conditions of an existing agent trigger.",
+        "tags": [
+          "Agents - Triggers"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "triggerId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Agent Trigger",
+        "description": "Remove an automated trigger from an agent, stopping its activation.",
+        "tags": [
+          "Agents - Triggers"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "agentId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "required": true,
+            "in": "path",
+            "name": "triggerId",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
           }
         }
       }
@@ -6247,6 +6247,18 @@
     {
       "name": "Agents",
       "description": "Operations related to agents"
+    },
+    {
+      "name": "Agents - Deployments",
+      "description": "Operations related to agents - deployments"
+    },
+    {
+      "name": "Agents - Memory",
+      "description": "Operations related to agents - memory"
+    },
+    {
+      "name": "Agents - Triggers",
+      "description": "Operations related to agents - triggers"
     },
     {
       "name": "API Keys",
