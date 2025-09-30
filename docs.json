@@ -24,6 +24,7 @@
               "guides/agents",
               "guides/creation",
               "guides/concepts",
+              "guides/memory",
               "guides/sdk"
             ]
           },
