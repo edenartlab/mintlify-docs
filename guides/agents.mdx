@@ -10,7 +10,7 @@ Eden Agents are chat agents who are given a custom personality, set of tools, an
 
 ## Create an Agent
 
-A list of all agents featured on Eden is [found here](https://beta.eden.art/explore?tab=agents). From that page, click "Create Agent" to take you to the builder interface. You may also edit agents from this page.
+A list of all agents featured on Eden is [found here](https://app.eden.art/explore?tab=agents). From that page, click "Create Agent" to take you to the builder interface. You may also edit agents from this page.
 
 <img src="/img/agents.jpg" alt="Agent home screen" />
 
@@ -56,36 +56,9 @@ A list of all agents featured on Eden is [found here](https://beta.eden.art/expl
 
 ## Training a custom visual model
 
-While not mandatory, Eden supports [training an optional visual model](https://beta.eden.art/train) that gets integrated into your agent. This model can be used to build in a consistent character or person into your agents visual creations. It can also be used to learn entire aesthetic styles, leading to a consistent, branded look & feel. See our [models page](https://beta.eden.art/explore?tab=models) for examples.
+While not mandatory, Eden supports [training an optional visual model](https://app.eden.art/train) that gets integrated into your agent. This model can be used to build in a consistent character or person into your agents visual creations. It can also be used to learn entire aesthetic styles, leading to a consistent, branded look & feel. See our [models page](https://app.eden.art/explore?tab=models) for examples.
 
-Eden supports two [trainers](https://beta.eden.art/train): an older SDXL trainer (left) and the newer and better FLUX trainer (right) that should be used for making agents:
-
-<img src="/img/flux_lora/selector.jpg" alt="Old SDXL trainer (left) and new FLUX trainer (right)" style={{width: '50%', margin: '0 auto'}} />
-
-A good training set should have at least 5 high-resolution images (10-15 images is even better). 
-The trainer has a couple of advanced options, but generally using all-default settings works very well:
-
-### Training modes
-
-<Tabs>
-  <Tab title="Face Mode">
-    The **face** mode in the trainer will focus on the face only and try to ignore clothing and surroundings as much as possible, ideal for training a person:
-    
-    <img src="/img/flux_lora/xander_train.jpg" alt="Person training images. Notice all images are diverse and high quality." />
-    <img src="/img/flux_lora/xander_test.jpg" alt="AI generated images using custom model" />
-  </Tab>
-  
-  <Tab title="Object Mode">
-    The **object** mode is ideal for learning entire characters, objects or things like the iconic Banny character from [juicebox](https://juicebox.money/):
-    
-    <img src="/img/flux_lora/banny_train.jpg" alt="Character training images. Notice all images are diverse and high quality." style={{width: '70%', margin: '0 auto'}} />
-    <img src="/img/flux_lora/banny_test.jpg" alt="AI generated images using custom model" />
-  </Tab>
-  
-  <Tab title="Style Mode">
-    Used to learn the general aesthetics of a set of images, perfect for artists with their own custom style.
-  </Tab>
-</Tabs>
+To learn more about training models, see [this guide](/guides/models).
 
 ### Linking your custom model
 
@@ -95,9 +68,10 @@ Once training is done, you can simply go (back) to the agent builder form and co
 
 ## Interact with your Agent
 
-Once deployed, you can find your agent in the [agents home screen](https://beta.eden.art/explore?tab=agents) and start a chat with them.
+Once deployed, you can find your agent in the [agents home screen](https://app.eden.art/explore?tab=agents) and start a chat with them.
 
-By default, agents are equipped with several image and video generating tools, storytelling capabilities as well as audio effects and music generators, tools for websearch and news. 
+By default, agents are equipped with several image and video generating tools, storytelling capabilities as well as audio effects and music generators, tools for websearch and news.
+
 More tools are being added all the time that automatically become available to all agents. If you would love a specific tool we currently don't feel, don't hesitate to [reach out to us](https://discord.com/invite/4dSYwDT)!
 
 <img src="/img/banny_chat.jpg" alt="Chat interface with an agent" />

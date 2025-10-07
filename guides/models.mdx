@@ -3,15 +3,15 @@ title: Training Models
 description: Train custom LoRA models for consistent characters, objects, and styles
 ---
 
-A limitation of generative models is that they can only generate things they've been trained on. But what if you want to consistently compose with a specific object, person's face, or artistic style not found in the original training data? This is where *Concepts* come in.
+A limitation of generative models is that they can only generate things they've been trained on. But what if you want to consistently compose with a specific object, person's face, or artistic style not found in the original training data? This is where Eden trained models come in.
 
-Concepts are custom characters, objects, styles, or specific people which have been trained and added by Eden users to the Eden generators' knowledge base, using the [LoRA technique](https://arxiv.org/abs/2106.09685). With concepts, users are able to consistently reproduce specific content and styles in their creations.
+Models are custom characters, objects, styles, or specific people which have been trained and added by Eden users to the Eden tools' knowledge base, using the [LoRA technique](https://arxiv.org/abs/2106.09685). With models, users are able to consistently reproduce specific content and styles in their creations.
 
-Concepts are first trained by uploading example images to the [SDXL trainer](https://beta.eden.art/train/lora_trainer). Training takes around 10 minutes. Once trained, the concept becomes available in all endpoints, including images and video.
+Models are first trained by uploading example images to either the [Flux or (Older) SDXL Trainer](https://app.eden.art/train). Training a model takes a couple of hours. Once trained, the model becomes available in all endpoints, including images and video.
 
 ## Training
 
-Train concepts through the [training UI](https://beta.eden.art/train/lora_trainer) or the [SDK](/guides/sdk).
+Train models through the [training UI](https://app.eden.art/train).
 
 ### Selecting your training set
 
@@ -84,7 +84,7 @@ You need just a few images:
 Training at lower resolutions (e.g. 768) can be useful if you want to learn a face but prompt it in settings where the face is only part of the image. Using init_images with rough shape composition helps in this scenario.
 </Tip>
 
-## Concept types
+## Model types
 
 ### Faces
 
@@ -98,7 +98,7 @@ Face mode is highly optimized for human faces only. Use object mode for cartoon 
 
 Reference in prompts:
 - Xander as a character in a noir graphic novel
-- concept as a knight in shining armour (using angle brackets)
+- Xander as a knight in shining armour (using angle brackets)
 - Xander as the Mona Lisa (using angle brackets)
 
 <img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/xander_generated_images.jpg" alt="Generated images with concept" />
@@ -126,7 +126,7 @@ Model artistic styles or genres, focusing on abstract characteristics rather tha
 
 <img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/suave_training_imgs.jpg" alt="Style training images" />
 
-With style concepts, you don't need to reference the concept - just prompt normally and the style will be applied.
+With style models, you don't need to reference the concept - just prompt normally and the style will be applied.
 
 <img src="https://storage.googleapis.com/public-assets-xander/A_workbox/eden_docs/suave_generated_imgs.jpg" alt="Generated with style concept" />
 
@@ -135,13 +135,13 @@ Styles can capture various aesthetics, color palettes, layout patterns, or abstr
 <img src="/img/knolling_training.jpg" alt="Knolling training set" />
 <img src="/img/knolling_generated.jpg" alt="Generated knolling images" />
 
-## Generating with concepts
+## Generating with models
 
-Once trained, select your concept in the [creation tool](https://beta.eden.art/create) and trigger it by name or `<concept>` in prompts.
+Once trained, select your model in the [creation tool](https://app.eden.art/create) and trigger it by name or `<concept>` in prompts.
 
-## Exporting LoRAs
+## Exporting Models
 
-Eden concepts are compatible with other tools supporting LoRA.
+Eden models are compatible with other tools supporting LoRA.
 
 <img src="/img/download_concept.jpg" alt="Download concept as .tar file" />
 
@@ -185,7 +185,7 @@ Eden concepts are compatible with other tools supporting LoRA.
     Use "Load LoRA" node and adjust strength
   </Step>
   
-  <Step title="Trigger concept">
+  <Step title="Trigger model">
     Reference with `embedding:[lora_name]_embeddings` in prompt
   </Step>
 </Steps>
@@ -193,5 +193,5 @@ Eden concepts are compatible with other tools supporting LoRA.
 <img src="/img/comfy.jpeg" alt="Using in ComfyUI" />
 
 <Note>
-LoRA strength has relatively small effect because Eden concepts optimize token embeddings rather than LoRA matrices.
+LoRA strength has relatively small effect because Eden models optimize token embeddings rather than LoRA matrices.
 </Note>

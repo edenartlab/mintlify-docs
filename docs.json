@@ -14,17 +14,20 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
-            "pages": ["index", "overview/manna"]
+            "group": "Overview",
+            "pages": ["index"]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": ["core-concepts/manna"]
           },
           {
             "group": "Guides",
             "pages": [
-              "guides/hello-eden",
-              "guides/agents",
               "guides/creation",
-              "guides/concepts",
-              "guides/sdk"
+              "guides/models",
+              "guides/agents",
+              "guides/build"
             ]
           },
           {
@@ -94,17 +97,13 @@
             "group": "Social Media",
             "pages": [
               "integrations/discord",
-              "integrations/telegram",
               "integrations/twitter",
               "integrations/farcaster"
             ]
           },
           {
             "group": "E-commerce",
-            "pages": [
-              "integrations/shopify",
-              "integrations/printify"
-            ]
+            "pages": ["integrations/shopify", "integrations/printify"]
           }
         ]
       },
