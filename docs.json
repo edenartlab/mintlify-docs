@@ -27,6 +27,7 @@
               "guides/creation",
               "guides/models",
               "guides/agents",
+              "guides/memory",
               "guides/build"
             ]
           },
