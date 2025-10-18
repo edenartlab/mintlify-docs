@@ -98,13 +98,11 @@
             "group": "Social Media",
             "pages": [
               "integrations/discord",
+              "integrations/telegram",
               "integrations/twitter",
-              "integrations/farcaster"
+              "integrations/farcaster",
+              "integrations/tiktok"
             ]
-          },
-          {
-            "group": "E-commerce",
-            "pages": ["integrations/shopify", "integrations/printify"]
           }
         ]
       },

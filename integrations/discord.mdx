@@ -8,7 +8,7 @@ icon: discord
 Deployments are experimental and currently in private beta. If you're interested in testing it now, please reach out to the devs on [Discord](https://discord.com/invite/4dSYwDT).
 </Info>
 
-Users who have been granted access to the deployment beta will notice a "Deployments" section in each Agent's settings. Through this interface, you can deploy your agent to Discord or [Telegram](/integrations/telegram).
+Users who have been granted access to the deployment beta will notice a "Deployments" section in each Agent's settings.
 
 ## Setup Process
 
@@ -59,8 +59,14 @@ Users who have been granted access to the deployment beta will notice a "Deploym
     <img src="/img/discord_deployment.jpg" alt="Discord deployment configuration" style={{width: '80%'}} />
     
     ### Set Up Allowed Channels
+
+    You need to set up specific channels that your bot is allowed to access. The 'Allowed Channels' field is a list of channels your agent will be able to read and post to, and 'Read Access' is a list of channels your agent will be able to read from (but not post to).
+
+    The note field is a description of the channel that would be helpful for you to give to your agent to tell it where to read or post. A good note is something like "AI Server - General Chat", "Company Server - Marketing Channel", etc.
+
+    <img src="/img/discord/discord3.jpg" alt="Discord deployment channels" style={{width: '80%'}} />
     
-    First, enable Developer Mode in Discord:
+    To find the channel IDs, first, enable Developer Mode in Discord:
     
     <Tabs>
       <Tab title="Step 1: Open Settings">
@@ -81,6 +87,10 @@ Users who have been granted access to the deployment beta will notice a "Deploym
     <img src="/img/discord/_100000.jpg" alt="Copy Channel ID" style={{width: '20%'}} />
     
     Click "Deploy" when you're done.
+
+    <Note>
+    Alternatively, you can copy the channel URL, and the ID will be the last number in the URL. For example, if the URL is https://discord.com/channels/111111111/1234567890, the ID is 1234567890.
+    </Note>
   </Step>
   
   <Step title="Add Bot to Server">
@@ -102,6 +112,16 @@ Users who have been granted access to the deployment beta will notice a "Deploym
 
 Go to one of the allowed channels and mention your bot in a message. If it responds, you're all set!
 
+## Using the Discord Tools
+
+The following tools are available for your agent to use once it is deployed to Discord:
+- `discord_post` - Post a message to a channel
+- `discord_search` - Search for messages in a channel
+
+You can use these in a conversation with your agent.
+
+<img src="/img/discord/discord4.jpg" alt="Discord tools" style={{width: '80%'}} />
+
 ## Troubleshooting
 
 <AccordionGroup>
@@ -110,6 +130,7 @@ Go to one of the allowed channels and mention your bot in a message. If it respo
     - Check the bot has "Send Messages" permissions in the channel
     - Verify the channel ID is in the allowed channels list
     - Ensure gateway intents are enabled
+    - Ensure the bot shows 'online' in the channels you are trying to get it to respond in. If the bot does not show in the sidebar and online, it does not have access to the channel.
   </Accordion>
   
   <Accordion title="Private channel setup">
