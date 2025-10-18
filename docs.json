@@ -95,6 +95,10 @@
         "tab": "Integrations",
         "groups": [
           {
+            "group": "Overview",
+            "pages": ["integrations/overview"]
+          },
+          {
             "group": "Social Media",
             "pages": [
               "integrations/discord",

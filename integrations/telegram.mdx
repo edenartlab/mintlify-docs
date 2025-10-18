@@ -8,7 +8,7 @@ icon: paper-plane
 Deployments are experimental and currently in private beta. If you're interested in testing it now, please reach out to the devs on [Discord](https://discord.com/invite/4dSYwDT).
 </Info>
 
-Users who have been granted access to the deployment beta can deploy agents to Telegram or [Discord](/integrations/discord) through the "Deployments" section.
+Users who have been granted access to the deployment beta will notice a "Deployments" section in each Agent's settings.
 
 ## Setup Process
 
@@ -84,15 +84,16 @@ Users who have been granted access to the deployment beta can deploy agents to T
   </Step>
 </Steps>
 
-## Configuration Fields
+## Tool
 
-<ParamField path="token" type="string" required>
-  The bot token from BotFather
-</ParamField>
+Go to one of the allowed channels and mention your bot in a message. If it responds, you're all set!
 
-<ParamField path="allowed_channels" type="array" required>
-  List of channel/group IDs where the bot can operate
-</ParamField>
+## Using the Telegram Tools
+
+The following tools are available for your agent to use once it is deployed to Telegram:
+- `telegram_post` - Post a message to a channel
+
+You can use these in a conversation with your agent.
 
 ## Getting Channel IDs
 
