@@ -15,11 +15,15 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": ["index"]
+            "pages": [
+              "index"
+            ]
           },
           {
             "group": "Core Concepts",
-            "pages": ["core-concepts/manna"]
+            "pages": [
+              "core-concepts/manna"
+            ]
           },
           {
             "group": "Guides",
@@ -33,7 +37,10 @@
           },
           {
             "group": "Legal",
-            "pages": ["legal/tos", "legal/privacy"]
+            "pages": [
+              "legal/tos",
+              "legal/privacy"
+            ]
           }
         ]
       },
@@ -79,15 +86,24 @@
           },
           {
             "group": "Text & Data Tools",
-            "pages": ["tools/transcription", "tools/weather", "tools/websearch"]
+            "pages": [
+              "tools/transcription",
+              "tools/weather",
+              "tools/websearch"
+            ]
           },
           {
             "group": "Model Training",
-            "pages": ["tools/flux_trainer", "tools/lora_trainer"]
+            "pages": [
+              "tools/flux_trainer",
+              "tools/lora_trainer"
+            ]
           },
           {
             "group": "Other Tools",
-            "pages": ["tools/style_transfer"]
+            "pages": [
+              "tools/style_transfer"
+            ]
           }
         ]
       },
@@ -96,7 +112,9 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": ["integrations/overview"]
+            "pages": [
+              "integrations/overview"
+            ]
           },
           {
             "group": "Social Media",
@@ -115,7 +133,9 @@
         "groups": [
           {
             "group": "API documentation",
-            "pages": ["api-reference/introduction"]
+            "pages": [
+              "api-reference/introduction"
+            ]
           },
           {
             "group": "API Reference",
