@@ -54,7 +54,6 @@
               "tools/flux_schnell",
               "tools/openai_image_edit",
               "tools/openai_image_generate",
-              "tools/seedream3",
               "tools/seedream4"
             ]
           },
