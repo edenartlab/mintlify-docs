@@ -1,0 +1,66 @@
+---
+title: "Gpt Image 15 Edit"
+description: "Creates an edited or extended image given one or more source images and a prompt, using fal.ai's GPT Image 1.5 model."
+---
+
+## Overview
+
+Creates an edited or extended image given one or more source images and a prompt, using fal.ai's GPT Image 1.5 model.
+
+- **Output Type**: image
+- **Estimated Cost**: 5 * num_images credits
+- **Handler**: fal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  A description of what you want the model to do with your images.
+
+  <Tip>
+    Describe the edits you want to make to the image.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="image_urls" type="array<image>" required>
+  The image(s) to edit. These will be used as reference for the generation.
+
+  - Label: Input Image(s)
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="mask_image_url" type="image">
+  The mask image to use for the generation. White areas indicate where the image should be edited.
+
+  - Label: Mask Image (optional)
+</ParamField>
+
+<ParamField body="image_size" type="string" default="auto">
+  Aspect ratio for the generated image.
+
+  - Label: Image Size
+  - Options: `auto`, `1024x1024`, `1536x1024`, `1024x1536`
+</ParamField>
+
+<ParamField body="input_fidelity" type="string" default="high">
+  How strongly to preserve the input image's content.
+
+  <Tip>
+    High fidelity preserves more of the original details like text, faces, logos, etc.
+  </Tip>
+
+  - Label: Input Fidelity
+  - Options: `low`, `high`
+</ParamField>
+
+<ParamField body="num_images" type="integer" default={1}>
+  Number of images to generate.
+
+  - Label: Number of Images
+  - Minimum: 1
+  - Maximum: 4
+</ParamField>

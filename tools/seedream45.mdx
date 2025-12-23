@@ -1,0 +1,91 @@
+---
+title: "Seedream45"
+description: "ByteDance's advanced text-to-image model generation"
+---
+
+## Overview
+
+ByteDance's advanced text-to-image model generation
+
+- **Output Type**: image
+- **Estimated Cost**: 4 * max_images credits
+- **Handler**: replicate
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text prompt for image generation
+
+  - Label: Prompt
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="size" type="string" default="2K">
+  Image resolution preset
+
+  <Tip>
+    1K: 1024px, 2K: 2048px, 4K: 4096px, custom: use width/height parameters
+  </Tip>
+
+  - Label: Size
+  - Options: `1K`, `2K`, `4K`, `custom`
+</ParamField>
+
+<ParamField body="width" type="integer" default={2048}>
+  Custom image width in pixels (only used when size is 'custom')
+
+  - Label: Width
+  - Minimum: 1024
+  - Maximum: 4096
+</ParamField>
+
+<ParamField body="height" type="integer" default={2048}>
+  Custom image height in pixels (only used when size is 'custom')
+
+  - Label: Height
+  - Minimum: 1024
+  - Maximum: 4096
+</ParamField>
+
+<ParamField body="aspect_ratio" type="string" default="match_input_image">
+  Aspect ratio for the generated image
+
+  <Tip>
+    Set aspect ratio manually (not "match_input_image") if you do not have any image inputs
+  </Tip>
+
+  - Label: Aspect ratio
+  - Options: `match_input_image`, `1:1`, `4:3`, `3:4`, `16:9`, `9:16`, `3:2`, `2:3`, `21:9`
+</ParamField>
+
+<ParamField body="image_input" type="array<image>">
+  Optional input image(s) to use as references
+
+  <Tip>
+    Optional input images for image-to-image transformation or object/style reference
+  </Tip>
+
+  - Label: Input images
+</ParamField>
+
+<ParamField body="max_images" type="integer" default={1}>
+  Maximum number of images to generate when sequential generation is enabled
+
+  - Label: Number of images
+  - Minimum: 1
+  - Maximum: 15
+</ParamField>
+
+<ParamField body="sequential_image_generation" type="string" default="disabled">
+  Group image generation mode
+
+  <Tip>
+    When enabled, the model will generate a batch of up to max_images images with consistency
+  </Tip>
+
+  - Label: Sequential generation
+  - Options: `disabled`, `auto`
+</ParamField>

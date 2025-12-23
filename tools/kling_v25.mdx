@@ -1,0 +1,73 @@
+---
+title: "Kling V25"
+description: "Generate 5s or 10s videos from a starting image using Kling v2.5 via FAL."
+---
+
+## Overview
+
+Generate 5s or 10s videos from a starting image using Kling v2.5 via FAL.
+
+- **Output Type**: video
+- **Estimated Cost**: duration == "5" ? 50 : 100 credits
+- **Handler**: fal
+
+## Parameters
+
+### Required Parameters
+
+<ParamField body="prompt" type="string" required>
+  Text description of the video to generate.
+
+  <Tip>
+    Describe the motion and action you want in the video. Be specific about movements and visual elements.
+  </Tip>
+
+  - Label: Prompt
+</ParamField>
+
+<ParamField body="image_url" type="image" required>
+  URL of the image to be used as the starting frame of the video.
+
+  <Tip>
+    This image will be used as the first frame of the video. The model will animate from this starting point based on your prompt.
+  </Tip>
+
+  - Label: Input Image
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="duration" type="string" default="5">
+  The duration of the generated video in seconds.
+
+  - Label: Duration
+  - Options: `5`, `10`
+</ParamField>
+
+<ParamField body="negative_prompt" type="string" default="blur, distort, and low quality">
+  Things to avoid in the video generation.
+
+  <Tip>
+    Describe anything you do NOT want to appear in the video or any behaviors to avoid.
+  </Tip>
+
+  - Label: Negative Prompt
+</ParamField>
+
+<ParamField body="cfg_scale" type="float" default={0.5}>
+  How closely to follow the prompt. Lower values give more creative freedom, higher values stick closer to the prompt.
+
+  - Label: Guidance Scale
+  - Minimum: 0
+  - Maximum: 1
+</ParamField>
+
+<ParamField body="tail_image_url" type="image">
+  URL of the image to be used as the last frame of the video.
+
+  <Tip>
+    Optional. If provided, the video will transition from the starting image to this end image.
+  </Tip>
+
+  - Label: End Image
+</ParamField>
