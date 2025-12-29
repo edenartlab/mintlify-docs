@@ -33,18 +33,102 @@ We collect various types of information:
 
 Your information is used to provide and improve our Services, including user experience enhancement and service development.
 
-## 3. Retention of Information
+## 3. Google API Services and User Data
+
+Eden integrates with Google services, including Google Calendar, to provide AI agent functionality. This section specifically addresses how we handle data obtained through Google APIs in compliance with the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy).
+
+### What Google Data We Access
+
+When you connect your Google account to Eden, our AI agents may access:
+
+<AccordionGroup>
+  <Accordion title="Google Calendar Data" icon="calendar">
+    - Calendar events (titles, descriptions, dates, times, locations)
+    - Calendar metadata (calendar names, time zones)
+    - Event attendee information
+    - Event status and responses
+  </Accordion>
+</AccordionGroup>
+
+### How We Use Google User Data
+
+<Card title="Limited Use Disclosure" icon="shield-check">
+Eden's use of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements.
+</Card>
+
+We use Google user data **exclusively** for the following purposes:
+
+- **Agent Calendar Management**: Your AI agent uses Google Calendar access solely to create, modify, and delete calendar events on your behalf as a community manager and planning facilitator
+- **Event Coordination**: To help your agent schedule and manage events for your community
+- **User-Initiated Actions**: All calendar operations are performed only at your direction or based on rules you configure for your agent
+
+<Warning>
+We do **not** use Google user data for:
+- Advertising or marketing purposes
+- Training general AI/ML models
+- Selling or sharing with third parties for their independent use
+- Any purpose other than providing the specific agent functionality you requested
+</Warning>
+
+### How We Store Google User Data
+
+- Google Calendar data is stored in our secure MongoDB database
+- Data is associated only with your specific user account and agent configuration
+- Access to stored Google data is strictly limited to authorized Eden administrators
+- We retain Google user data only as long as necessary to provide the requested agent services
+
+### How We Share Google User Data
+
+We do **not** share your Google user data with any third parties, except:
+
+- When required by law or legal process
+- To protect the rights, property, or safety of Eden, our users, or others
+- With your explicit consent
+
+### Google Data Protection Measures
+
+We implement the following security measures specifically for Google user data:
+
+<AccordionGroup>
+  <Accordion title="Encryption" icon="lock">
+    - All Google user data is encrypted in transit using TLS 1.2 or higher
+    - Data at rest is protected using industry-standard encryption
+  </Accordion>
+
+  <Accordion title="Access Controls" icon="user-lock">
+    - Google API credentials are stored securely and never exposed to unauthorized parties
+    - Access to Google user data is restricted to essential personnel only
+    - We use OAuth 2.0 for secure authentication with Google services
+  </Accordion>
+
+  <Accordion title="Data Minimization" icon="minimize">
+    - We only request the minimum Google API scopes necessary for agent functionality
+    - We do not store Google data beyond what is required for the service
+  </Accordion>
+</AccordionGroup>
+
+### Revoking Google Access
+
+You may revoke Eden's access to your Google account at any time by:
+
+1. Visiting your [Google Account Security Settings](https://myaccount.google.com/permissions)
+2. Finding Eden in the list of connected apps
+3. Clicking "Remove Access"
+
+Upon revocation, your agent will no longer be able to access or manage your Google Calendar.
+
+## 4. Retention of Information
 
 We retain your information indefinitely for ongoing service improvement.
 
-## 4. Sharing of Information
+## 5. Sharing of Information
 
 While we currently do not share your data with external parties, we reserve the right to share with:
 
 - **Third-party service providers**, including cloud storage and analytics services
 - **Legal compliance** or protection of Eden's rights, property, or safety
 
-## 5. Data Protection and Security
+## 6. Data Protection and Security
 
 We implement technical and organizational measures to protect your personal information:
 
@@ -69,29 +153,29 @@ We implement technical and organizational measures to protect your personal info
 While we strive to protect your personal information, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security but are committed to promptly notifying affected users in the event of a data breach as required by applicable law.
 </Warning>
 
-## 6. International Data Transfer
+## 7. International Data Transfer
 
 Your data may be stored or processed in different locations worldwide, subject to applicable data protection laws.
 
-## 7. Children's Privacy
+## 8. Children's Privacy
 
 <Warning>
 Our Services are not intended for individuals under 18 years of age, and we do not knowingly collect personal information from this group.
 </Warning>
 
-## 8. Your Rights
+## 9. Your Rights
 
 You may request access to, correction, or deletion of your personal data by e-mailing us at `info@eden.art`.
 
-## 9. Third-Party Links
+## 10. Third-Party Links
 
 Our Services may contain links to other websites. Please note that our Privacy Policy does not apply to these external sites, and we are not responsible for their content or privacy practices.
 
-## 10. Changes to This Privacy Policy
+## 11. Changes to This Privacy Policy
 
 We may update this policy and will inform users of significant changes via e-mail.
 
-## 11. Contact Us
+## 12. Contact Us
 
 <Card title="Contact Information" icon="envelope">
   For questions or concerns, please contact us at `info@eden.art`
