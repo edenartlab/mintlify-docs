@@ -3,7 +3,7 @@ title: Privacy Policy
 description: How Eden collects, uses, and protects your personal information
 ---
 
-*Effective Date: December 19, 2025*
+*Effective Date: September 16, 2026*
 
 Eden Labs, Inc ("Eden", "we", "us", or "our") respects your privacy and is committed to protecting your personal information. This Privacy Policy outlines how we collect, use, retain, and protect the personal information of users ("you", "your") of our services ("Services").
 
@@ -33,9 +33,11 @@ We collect various types of information:
 
 Your information is used to provide and improve our Services, including user experience enhancement and service development.
 
+Google API data, including information derived from it, is subject to the specific purposes and limitations in section 3. The general service-improvement language does not expand those purposes.
+
 ## 3. Google API Services and User Data
 
-Eden integrates with Google services, including Google Calendar, to provide AI agent functionality. This section specifically addresses how we handle data obtained through Google APIs in compliance with the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy).
+Eden integrates with Google Calendar to help you manage your calendar through an AI agent. This section describes the Calendar integration in new Eden at `dev.eden.art` and `bp.eden.art`, including its use of information derived from Google data. It supplements the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy) and [Google Workspace user data and developer policy](https://developers.google.com/workspace/workspace-api-user-data-developer-policy).
 
 ### What Google Data We Access
 
@@ -47,8 +49,11 @@ When you connect your Google account to Eden, our AI agents may access:
     - Calendar metadata (calendar names, time zones)
     - Event attendee information
     - Event status and responses
+    - Event and meeting links
   </Accordion>
 </AccordionGroup>
+
+We also receive the identifier and email address of your connected Google account, its granted permissions, and OAuth credentials needed to maintain the connection. New Eden requests `openid`, email identification, `calendar.calendarlist.readonly` and `calendar.events`. These permissions identify your account, list the calendars you can access, and read or manage their events. New Eden does not request Gmail access or permission to manage calendar sharing rules or settings.
 
 ### How We Use Google User Data
 
@@ -58,9 +63,9 @@ Eden's use of information received from Google APIs adheres to the [Google API S
 
 We use Google user data **exclusively** for the following purposes:
 
-- **Agent Calendar Management**: Your AI agent uses Google Calendar access solely to create, modify, and delete calendar events on your behalf as a community manager and planning facilitator
-- **Event Coordination**: To help your agent schedule and manage events for your community
-- **User-Initiated Actions**: All calendar operations are performed only at your direction or based on rules you configure for your agent
+- **Calendar assistance**: Read, create, update and delete events, find available times, and answer your Calendar questions.
+- **Your requested conversation features**: Use relevant Calendar information in the conversation and permitted follow-up context needed to provide the assistance you requested.
+- **Your instructions and permissions**: Calendar access requires your Google connection, permission for the selected agent, and the in-conversation processing agreement. An agent's generated text does not itself grant permission.
 
 <Warning>
 We do **not** use Google user data for:
@@ -72,18 +77,27 @@ We do **not** use Google user data for:
 
 ### How We Store Google User Data
 
-- Google Calendar data is stored in our secure MongoDB database
-- Data is associated only with your specific user account and agent configuration
-- Access to stored Google data is strictly limited to authorized Eden administrators
-- We retain Google user data only as long as necessary to provide the requested agent services
+New Eden stores Google connection records in PostgreSQL hosted by Neon. These include account identifiers, email, granted permissions, connection status, agent permissions, recorded consent and encrypted OAuth credentials. Tokens remain on Eden's server; they are not included in the agent's Calendar tool results or shared conversation views.
+
+Relevant Calendar results enter the agent's conversation context. Results and summaries can remain in conversation history on Eden's application and agent-runtime systems. Operational audit records include action identifiers, outcomes and resource identifiers or counts, rather than complete event descriptions. We do not use retained Google data for independent advertising or general-model training.
+
+Retiring an older Eden integration does not automatically erase its previously stored connection records or history. Those records remain subject to the purpose limitations and deletion process in this policy.
 
 ### How We Share Google User Data
 
-We do **not** share your Google user data with any third parties, except:
+**AI processing.** With your affirmative in-conversation agreement, Eden sends relevant Calendar results and conversation context to the disclosed AI processor to fulfill your requests. The currently approved Calendar model processor is Anthropic (Claude). Eden checks the permitted processing route for Calendar-containing context, including subsequent conversation processing. A model setting alone does not authorize sending that context to another processor. Google authorization and this processing agreement are separate choices.
 
-- When required by law or legal process
-- To protect the rights, property, or safety of Eden, our users, or others
-- With your explicit consent
+With your processing agreement, relevant Calendar results may also be used for conversation titles and private agent notes and memory updates. Calendar-sensitive image, video and music processing is currently unavailable because those processors are not approved. Retained Calendar-derived media remains privately access-controlled.
+
+Anthropic states that it does not use commercial API inputs or outputs for model training by default. Eden's API organization has feedback sharing disabled and standard 30-day retention, not Zero Data Retention. Where Eden uses its approved Claude subscription route, model improvement is disabled on that account. Provider retention can vary by service and feature and is distinct from Eden's retention of conversation history. See [Anthropic's commercial data-use explanation](https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training) and [API retention documentation](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+
+**Agent-owner assistance.** Using another person's agent does not automatically authorize that person to read your Calendar-containing conversation. You may separately approve specific displayed messages for the named agent owner to view when assisting you. That approval does not include future messages or changed content. Calendar use does not require this optional sharing. Revocation stops subsequent access through Eden but cannot retract information already viewed. This permission never gives the owner your Google credentials or access to your Calendar from their own conversations.
+
+**Service operation.** Hosting and database providers process data to operate Eden, including Neon for new Eden's database. Human access to Google data is limited to your documented permission for the specific data or the security, legal and other exceptions allowed by Google's applicable policies. Google data is not sold or shared for a third party's independent use.
+
+Calendar is supported in private user conversations. Public links and multi-person conversations do not grant permission to expose Calendar data to their viewers. Eden restricts Calendar use and access to Calendar-containing history in those contexts unless appropriate permissions are supported.
+
+Disconnecting Calendar does not remove information previously included in conversations. See the retention and deletion explanation below.
 
 ### Google Data Protection Measures
 
@@ -91,42 +105,49 @@ We implement the following security measures specifically for Google user data:
 
 <AccordionGroup>
   <Accordion title="Encryption" icon="lock">
-    - All Google user data is encrypted in transit using TLS 1.2 or higher
-    - Data at rest is protected using industry-standard encryption
+    - Public application connections and requests to Google use HTTPS
+    - New Eden encrypts stored Google OAuth credentials; credentials are not included in model-visible Calendar results
+    - Conversation histories and agent-runtime copies are separate from encrypted connection credentials and remain subject to the access and deletion controls described above
   </Accordion>
 
   <Accordion title="Access Controls" icon="user-lock">
     - Google API credentials are stored securely and never exposed to unauthorized parties
-    - Access to Google user data is restricted to essential personnel only
+    - Access is controlled by user identity, agent permissions and the processing and sharing permissions described above
     - We use OAuth 2.0 for secure authentication with Google services
   </Accordion>
 
   <Accordion title="Data Minimization" icon="minimize">
     - We only request the minimum Google API scopes necessary for agent functionality
-    - We do not store Google data beyond what is required for the service
+    - Calendar results are limited to information relevant to the requested operation; retained history, connection records and deletion are described in this section
   </Accordion>
 </AccordionGroup>
 
 ### Revoking Google Access
 
-You may revoke Eden's access to your Google account at any time by:
+In new Eden, use **Disconnect** in Google Calendar integration settings to disable your connection. Eden clears its stored usable access and refresh credentials, disables the agent permissions for that connection and removes pending connection requests. Eden also attempts to revoke the credential at Google.
+
+You can separately remove Eden's access in your Google Account:
 
 1. Visiting your [Google Account Security Settings](https://myaccount.google.com/permissions)
 2. Finding Eden in the list of connected apps
 3. Clicking "Remove Access"
 
-Upon revocation, your agent will no longer be able to access or manage your Google Calendar.
+Disconnect stops new Calendar use through that connection. A request already sent to Google may still complete. Disconnect does not delete Google Calendar events, undo earlier changes, erase conversation history or remove every connection metadata or audit record. Revoking a Google grant may also affect other clients in the same Google project.
+
+To request deletion of retained personal data, contact **support@eden.art**. New Eden's account-erasure process separately removes Google connection records and agent permissions and removes or scrubs associated consent and integration-audit records. Conversation and agent-runtime erasure are separate parts of that process, not an effect of Disconnect. This policy does not promise immediate erasure from every backup or external processor.
 
 ## 4. Retention of Information
 
-We retain your information indefinitely for ongoing service improvement.
+Retention depends on the information and service feature. For Google Calendar, disconnecting removes usable credentials but does not automatically erase connection metadata, audit records or information already included in conversations. You may request deletion as described in section 3. Retention does not authorize independent reuse of Google API data or override its Limited Use restrictions.
 
 ## 5. Sharing of Information
 
-While we currently do not share your data with external parties, we reserve the right to share with:
+Eden uses external providers to operate its services, including hosting, storage and AI processing. Information may be disclosed to:
 
 - **Third-party service providers**, including cloud storage and analytics services
 - **Legal compliance** or protection of Eden's rights, property, or safety
+
+Google API data and information derived from it remain subject to section 3, not a general authorization to share data.
 
 ## 6. Data Protection and Security
 
@@ -139,7 +160,7 @@ We implement technical and organizational measures to protect your personal info
 
   <Accordion title="Access Controls" icon="shield">
     - Personal data is stored in secure database systems
-    - Access to user data is strictly limited to our core development team
+    - Access is controlled according to the service feature and authorized user roles; Google Calendar processing and conversation sharing are described in section 3
     - We employ authentication mechanisms to prevent unauthorized access
   </Accordion>
 
@@ -165,7 +186,7 @@ Our Services are not intended for individuals under 18 years of age, and we do n
 
 ## 9. Your Rights
 
-You may request access to, correction, or deletion of your personal data by e-mailing us at `info@eden.art`.
+You may request access to, correction, or deletion of your personal data by e-mailing us at `support@eden.art`.
 
 ## 10. Third-Party Links
 
@@ -178,5 +199,5 @@ We may update this policy and will inform users of significant changes via e-mai
 ## 12. Contact Us
 
 <Card title="Contact Information" icon="envelope">
-  For questions or concerns, please contact us at `info@eden.art`
+  For questions or concerns, please contact us at `support@eden.art`
 </Card>
